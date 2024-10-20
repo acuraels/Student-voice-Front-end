@@ -1,0 +1,209 @@
+.stud-form-main {
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-bottom: 80px;
+}
+
+.stud-form-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 4px solid #B7C9E3;
+    background-color: #fff;
+    padding: 2rem 5rem;
+    margin: 100px auto 0px;
+    max-width: 50%;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.date-place-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.date,
+.place {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.desc {
+    text-align: left;
+}
+
+.input-group {
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.input-group-comment {
+    margin-bottom: 30px;
+}
+
+/* Специфичный класс для input[type="text"] и textarea */
+.stud-form-main-container input[type="text"],
+.stud-form-main-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Остальные стили остаются прежними */
+
+
+.rating {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.rating span {
+    cursor: pointer;
+    font-size: 2rem;
+    margin: 0 5px;
+}
+
+.praise-group {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.praise-group h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.praise-group div {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.praise-group button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s;
+}
+
+.praise-group button:hover {
+    transform: scale(1.1);
+}
+
+/* Новый специфичный класс для кнопки submit */
+.form-submit-action-large-done {
+    width: 250px;
+    padding: 10px;
+    background-color: #012235;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 0.75rem 0;
+    opacity: 85%;
+    margin: auto;
+    display: block;
+}
+
+.form-submit-action-large-done:hover {
+    background-color: #006DAB;
+}
+
+.form-submit-action-large-done:active {
+    background-color: #02C2FF;
+}
+
+/* Адаптивность для 1024px */
+@media (max-width: 1024px) {
+    .stud-form-main-container {
+        max-width: 70%;
+        padding: 2rem 3rem;
+    }
+
+    .praise-group div {
+        flex-direction: row;
+    }
+}
+
+/* Адаптивность для 768px */
+@media (max-width: 768px) {
+    .stud-form-main-container {
+        max-width: 90%;
+        padding: 1.5rem 2rem;
+    }
+
+    .date-place-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .date,
+    .place {
+        margin-bottom: 10px;
+    }
+
+    .rating span {
+        font-size: 1.75rem;
+    }
+
+    .praise-group div {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Адаптивность для 480px (мобильные устройства) */
+@media (max-width: 480px) {
+    .stud-form-main-container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
+
+    .rating span {
+        font-size: 1.5rem;
+    }
+
+    .date,
+    .place {
+        font-size: 0.9rem;
+    }
+
+    .input-group-comment textarea,
+    .stud-form-main-container input[type="text"] {
+        font-size: 0.9rem;
+    }
+
+    .form-submit-action-large-done {
+        padding: 10px 15px;
+        font-size: 1rem;
+    }
+
+    .praise-group div {
+        gap: 5px;
+    }
+}

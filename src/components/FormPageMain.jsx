@@ -1,7 +1,7 @@
 import React from 'react';
-import '.././styles/main.css';
+import '.././styles/formPageMain.css';
 
-const Main = () => {
+const FormPageMain = () => {
     return (
         <main className="main">
             <div className="main__container">
@@ -32,4 +32,4 @@ const Main = () => {
     );
 };
 
-export default Main;
+export default FormPageMain;

@@ -1,7 +1,7 @@
 import React from 'react';
-import '.././styles/footer.css';
+import '.././styles/formPageFooter.css';
 
-const Footer = () => {
+const FormPageFooter = () => {
     return (
         <footer className="footer">
             <div className="footer-container">
@@ -26,4 +26,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default FormPageFooter;
