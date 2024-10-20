@@ -3,22 +3,22 @@ import '../.././styles/FormPage/formPageFooter.css';
 
 const FormPageFooter = () => {
     return (
-        <footer className="footer">
-            <div className="footer-container">
-                <ul className="footer-list">
-                    <li className="footer-list-text">
+        <footer className="form-page-footer">
+            <div className="form-page-footer__container">
+                <ul className="form-page-footer__list">
+                    <li className="form-page-footer__list-text">
                         <h2>© ФГАОУ ВО “УрФУ имени первого Президента России Б. Н. Ельцина”</h2>
                         <p>Инстутит радиоэлектроники и информационных технологий - РТФ</p>
                     </li>
-                    <li className="footer-list-contacts">
-                        <p>Контакты</p>
+                    <li className="form-page-footer__list-contacts">
+                        <p className="form-page-footer__heading">Контакты</p>
                         <ul>
                             <li><a href="mailto:project.irit@urfu.ru">Написать нам</a></li>
                             <li><p>Екатеринбург, ул. Мира 32</p></li>
                         </ul>
                     </li>
-                    <li className="footer-list-social">
-                        <p>Мы в социальных сетях</p>
+                    <li className="form-page-footer__list-social">
+                        <p className="form-page-footer__heading">Мы в социальных сетях</p>
                     </li>
                 </ul>
             </div>

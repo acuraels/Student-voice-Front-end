@@ -1,116 +1,131 @@
-.footer-container {
+.form-page-footer__container {
     background-color: #012235;
     opacity: 85%;
     padding: 2rem 3rem;
     color: #fff;
 }
 
-.footer-list {
+.form-page-footer__list {
     display: flex;
     justify-content: space-between;
     gap: 100px;
 }
 
-.footer-list h2 {
+.form-page-footer__list h2 {
     font-weight: bold;
     margin-bottom: 1rem;
 }
 
-.footer-list p {
+.form-page-footer__list p {
     margin-bottom: 1rem;
 }
 
-.footer-list li {
+.form-page-footer__list li {
     list-style: none;
     font-size: 16px;
 }
 
-.footer-list a {
+.form-page-footer__list a {
     color: #fff;
     text-decoration: none;
 }
 
-.footer-list a:hover {
+.form-page-footer__heading {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.form-page-footer__list a:hover {
     text-decoration: underline;
 }
 
-
-
 @media (min-width: 1024px) {
-    .footer-list-text {
+    .form-page-footer__list-text {
         width: 35%;
     }
 }
 
 @media (max-width: 1024px) {
-    .footer-list {
+    .form-page-footer__list {
         flex-direction: column;
         gap: 30px;
         align-items: center;
         text-align: center;
     }
 
-    .footer-list-text,
-    .footer-list-contacts,
-    .footer-list-social {
+    .form-page-footer__list-text,
+    .form-page-footer__list-contacts,
+    .form-page-footer__list-social {
         width: 100%;
     }
 
-    .footer-list h2 {
+    .form-page-footer__list h2 {
         font-size: 20px;
         width: 100%;
     }
 
-    .footer-list p,
-    .footer-list li {
+    .form-page-footer__list p,
+    .form-page-footer__list li {
         font-size: 14px;
+    }
+
+    .form-page-footer__heading {
+        font-size: 22px !important;
     }
 }
 
 @media (max-width: 768px) {
-    .footer-container {
+    .form-page-footer__container {
         padding: 1.5rem 2rem;
     }
 
-    .footer-list {
+    .form-page-footer__list {
         gap: 20px;
     }
 
-    .footer-list h2 {
+    .form-page-footer__list h2 {
         font-size: 18px;
     }
 
-    .footer-list p,
-    .footer-list li {
+    .form-page-footer__list p,
+    .form-page-footer__list li {
         font-size: 13px;
     }
 
-    .footer-list a {
+    .form-page-footer__list a {
         font-size: 14px;
+    }
+
+    .form-page-footer__heading {
+        font-size: 20px !important;
     }
 }
 
 @media (max-width: 480px) {
-    .footer-container {
+    .form-page-footer__container {
         padding: 1rem;
     }
 
-    .footer-list {
+    .form-page-footer__list {
         gap: 15px;
         align-items: center;
     }
 
-    .footer-list h2 {
+    .form-page-footer__list h2 {
         font-size: 16px;
         margin-bottom: 0.75rem;
     }
 
-    .footer-list p,
-    .footer-list li {
+    .form-page-footer__list p,
+    .form-page-footer__list li {
         font-size: 12px;
     }
 
-    .footer-list a {
+    .form-page-footer__list a {
         font-size: 12px;
+    }
+
+    .form-page-footer__heading {
+        font-size: 18px !important;
     }
 }

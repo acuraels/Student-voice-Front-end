@@ -1,11 +1,11 @@
-.stud-form-main {
+.stud-form {
     background-image: url('/background-1080.png');
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 80px;
 }
 
-.stud-form-main-container {
+.stud-form__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -18,40 +18,39 @@
     max-width: 50%;
 }
 
-h1 {
+.stud-form__title {
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-.date-place-container {
+.stud-form__info {
     display: flex;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 20px;
 }
 
-.date,
-.place {
+.stud-form__info-date,
+.stud-form__info-place {
     text-align: center;
     font-size: 1rem;
 }
 
-.desc {
+.stud-form__info-desc {
     text-align: left;
 }
 
-.input-group {
+.stud-form__input-group {
     text-align: center;
     margin-bottom: 70px;
 }
 
-.input-group-comment {
+.stud-form__textarea {
     margin-bottom: 30px;
 }
 
-/* Специфичный класс для input[type="text"] и textarea */
-.stud-form-main-container input[type="text"],
-.stud-form-main-container textarea {
+.stud-form__input,
+.stud-form__textarea {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -62,42 +61,41 @@ h1 {
     box-sizing: border-box;
 }
 
-/* Остальные стили остаются прежними */
-
-
-.rating {
+.stud-form__rating {
     display: flex;
     justify-content: center;
     margin: 20px 0;
 }
 
-.rating span {
+.stud-form__star {
     cursor: pointer;
-    font-size: 2rem;
+    font-size: 3rem;
     margin: 0 5px;
 }
 
-.praise-group {
+.stud-form__star_filled {
+    font-size: 3rem;
+    color: gold;
+}
+
+.stud-form__praise-group {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.praise-group h3 {
+.stud-form__praise-title {
     font-size: 1.2rem;
     margin-bottom: 15px;
 }
 
-.praise-group div {
+.stud-form__praise-options {
     display: flex;
     justify-content: center;
     gap: 15px;
     flex-wrap: wrap;
 }
 
-.praise-group button {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.stud-form__praise-button {
     padding: 10px;
     border: none;
     background: none;
@@ -106,12 +104,11 @@ h1 {
     transition: transform 0.2s;
 }
 
-.praise-group button:hover {
+.stud-form__praise-button:hover {
     transform: scale(1.1);
 }
 
-/* Новый специфичный класс для кнопки submit */
-.form-submit-action-large-done {
+.stud-form__submit-button {
     width: 250px;
     padding: 10px;
     background-color: #012235;
@@ -125,85 +122,59 @@ h1 {
     display: block;
 }
 
-.form-submit-action-large-done:hover {
+.stud-form__submit-button:hover {
     background-color: #006DAB;
 }
 
-.form-submit-action-large-done:active {
+.stud-form__submit-button:active {
     background-color: #02C2FF;
 }
 
-/* Адаптивность для 1024px */
 @media (max-width: 1024px) {
-    .stud-form-main-container {
+    .stud-form__container {
         max-width: 70%;
         padding: 2rem 3rem;
     }
 
-    .praise-group div {
+    .stud-form__praise-options {
         flex-direction: row;
     }
 }
 
-/* Адаптивность для 768px */
 @media (max-width: 768px) {
-    .stud-form-main-container {
+    .stud-form__container {
         max-width: 90%;
         padding: 1.5rem 2rem;
     }
 
-    .date-place-container {
+    .stud-form__info {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .date,
-    .place {
-        margin-bottom: 10px;
-    }
-
-    .rating span {
-        font-size: 1.75rem;
-    }
-
-    .praise-group div {
+    .stud-form__praise-options {
         flex-direction: column;
         gap: 10px;
     }
 }
 
-/* Адаптивность для 480px (мобильные устройства) */
 @media (max-width: 480px) {
-    .stud-form-main-container {
+    .stud-form__container {
         width: 95%;
         padding: 1rem;
     }
 
-    h1 {
+    .stud-form__title {
         font-size: 1.2rem;
     }
 
-    .rating span {
-        font-size: 1.5rem;
-    }
-
-    .date,
-    .place {
+    .stud-form__input,
+    .stud-form__textarea {
         font-size: 0.9rem;
     }
 
-    .input-group-comment textarea,
-    .stud-form-main-container input[type="text"] {
-        font-size: 0.9rem;
-    }
-
-    .form-submit-action-large-done {
-        padding: 10px 15px;
-        font-size: 1rem;
-    }
-
-    .praise-group div {
-        gap: 5px;
+    .stud-form__submit-button {
+        padding: 0.5rem 0;
     }
 }

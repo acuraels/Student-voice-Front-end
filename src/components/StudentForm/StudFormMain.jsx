@@ -43,77 +43,77 @@ const StudFormMain = () => {
     };
 
     return (
-        <main className="stud-form-main">
-            <div className="stud-form-main-container">
-                <h1>Название дисциплины</h1>
-                <div className="date-place-container">
-                    <div className="date">
-                        <h2>Дата проведения</h2>
-                        <p className="desc">01.01.2024 - 11:11</p>
+        <main className="stud-form">
+            <div className="stud-form__container">
+                <h1 className="stud-form__title">Название дисциплины</h1>
+                <div className="stud-form__info">
+                    <div className="stud-form__info-date">
+                        <h2 className="stud-form__info-title">Дата проведения</h2>
+                        <p className="stud-form__info-desc">01.01.2024 - 11:11</p>
                     </div>
-                    <div className="place">
-                        <h2>Место проведения</h2>
-                        <p className="desc">Дистант</p>
+                    <div className="stud-form__info-place">
+                        <h2 className="stud-form__info-title">Место проведения</h2>
+                        <p className="stud-form__info-desc">Дистант</p>
                     </div>
                 </div>
 
                 {/* Форма */}
-                <form onSubmit={handleSubmit}>
-                    <div className="input-group">
+                <form onSubmit={handleSubmit} className="stud-form__form">
+                    <div className="stud-form__input-group">
                         <input
                             type="text"
                             placeholder="ФИО студента"
                             value={studentName}
                             onChange={(e) => setStudentName(e.target.value)}
                             required
+                            className="stud-form__input"
                         />
                     </div>
 
-                    <div className="input-group">
-                        <label>Оценка</label>
-                        <div className="rating">
-                            {/* Массив звезд */}
+                    <div className="stud-form__input-group">
+                        <label className="stud-form__label">Оценка</label>
+                        <div className="stud-form__rating">
                             {[1, 2, 3, 4, 5].map((star) => (
                                 <span
                                     key={star}
-                                    onClick={() => setRating(star)}  // Клик по звезде задает рейтинг
-                                    style={{ cursor: 'pointer', fontSize: '2rem' }} // Изменение стиля для удобства клика
-                                    className={star <= rating ? 'filled' : ''}
+                                    onClick={() => setRating(star)}
+                                    className={star <= rating ? 'stud-form__star stud-form__star_filled' : 'stud-form__star'}
                                 >
-                                    {star <= rating ? '★' : '☆'}  {/* Показываем либо заполненную, либо пустую звезду */}
+                                    {star <= rating ? '★' : '☆'}
                                 </span>
                             ))}
                         </div>
-                        <p>Ваша оценка: {rating}</p> {/* Отображение текущего рейтинга */}
+                        <p className="stud-form__current-rating">Ваша оценка: {rating}</p>
                     </div>
 
-                    <div className="praise-group">
-                        <h3>За что похвалить лектора?</h3>
-                        <div>
-                            <button type="button" onClick={() => handlePraiseSelection('Подача материала')}>
+                    <div className="stud-form__praise-group">
+                        <h3 className="stud-form__praise-title">За что похвалить лектора?</h3>
+                        <div className="stud-form__praise-options">
+                            <button type="button" onClick={() => handlePraiseSelection('Подача материала')} className="stud-form__praise-button">
                                 Подача материала
                             </button>
-                            <button type="button" onClick={() => handlePraiseSelection('Презентация')}>
+                            <button type="button" onClick={() => handlePraiseSelection('Презентация')} className="stud-form__praise-button">
                                 Презентация
                             </button>
-                            <button type="button" onClick={() => handlePraiseSelection('Ответы на вопросы')}>
+                            <button type="button" onClick={() => handlePraiseSelection('Ответы на вопросы')} className="stud-form__praise-button">
                                 Ответы на вопросы
                             </button>
-                            <button type="button" onClick={() => handlePraiseSelection('Интересные задания')}>
+                            <button type="button" onClick={() => handlePraiseSelection('Интересные задания')} className="stud-form__praise-button">
                                 Интересные задания
                             </button>
                         </div>
                     </div>
 
-                    <div className="input-group-comment">
+                    <div className="stud-form__input-group">
                         <textarea
                             value={comment}
                             placeholder="Ваш комментарий"
                             onChange={(e) => setComment(e.target.value)}
+                            className="stud-form__textarea"
                         />
                     </div>
 
-                    <button className="form-submit-action-large-done">Готово</button>
+                    <button className="stud-form__submit-button">Готово</button>
                 </form>
             </div>
         </main>
