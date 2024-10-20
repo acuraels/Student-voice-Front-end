@@ -1,0 +1,305 @@
+.admin-users__main {
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.admin-users__main-container {
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    max-width: 900px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.admin-users__main-container:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.admin-users__main-container-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-users__search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.admin-users__add-user {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.admin-users__add-user:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+}
+
+.admin-users__search-form {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.admin-users__search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px 0 0 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-users__search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.admin-users__search-button {
+    background-color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.admin-users__search-button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.admin-users__list-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.admin-users__list-header:hover {
+    color: #007bff;
+}
+
+.admin-users__list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.admin-users__list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-users__list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-users__user-info {
+    display: flex;
+    align-items: center;
+}
+
+.admin-users__user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.admin-users__list-item:hover .admin-users__user-avatar {
+    transform: scale(1.1);
+}
+
+.admin-users__user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-users__user-name {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.admin-users__list-item:hover .admin-users__user-name {
+    color: #007bff;
+}
+
+.admin-users__user-role {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.admin-users__user-actions {
+    display: flex;
+    align-items: center;
+}
+
+.admin-users__user-rating {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.admin-users__list-item:hover .admin-users__user-rating {
+    transform: scale(1.1);
+}
+
+.admin-users__user-rating img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.admin-users__user-stats,
+.admin-users__user-edit {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.3s ease;
+}
+
+.admin-users__user-stats:hover,
+.admin-users__user-edit:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.admin-users__show-more {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-users__show-more:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Медиа-запросы остаются без изменений */
+@media (max-width: 1024px) {
+    .admin-users__main-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-users__main-container {
+        padding: 15px;
+    }
+
+    .admin-users__search-container {
+        align-items: baseline;
+    }
+
+    .admin-users__add-user {
+        align-self: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .admin-users__search-form {
+        margin-left: 0;
+    }
+
+    .admin-users__list-header {
+        display: none;
+    }
+
+    .admin-users__list-item {
+        align-items: flex-start;
+    }
+
+    .admin-users__user-actions {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-users__main {
+        padding: 10px;
+    }
+
+    .admin-users__main-container {
+        padding: 10px;
+    }
+
+    .admin-users__main-container-title {
+        font-size: 20px;
+    }
+
+    .admin-users__add-user__img {
+        width: 75%;
+        height: 75%;
+    }
+
+    .admin-users__user-avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .admin-users__user-name {
+        font-size: 14px;
+    }
+
+    .admin-users__user-role {
+        font-size: 12px;
+    }
+
+    .admin-users__user-rating,
+    .admin-users__user-stats,
+    .admin-users__user-edit {
+        margin-left: 5px;
+    }
+
+    .admin-users__show-more {
+        width: 100%;
+    }
+}

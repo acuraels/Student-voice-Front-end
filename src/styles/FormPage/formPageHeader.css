@@ -9,7 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgb(134, 133, 133);
+    border-bottom: 2px solid rgb(134, 133, 133);
 }
 
 .header__logo {
@@ -17,4 +17,10 @@
     color: #000;
     font-size: 30px;
     font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.header__logo:hover {
+    color: #4a90e2;
+    transform: scale(1.05);
 }

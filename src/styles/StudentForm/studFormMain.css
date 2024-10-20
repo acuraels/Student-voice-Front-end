@@ -120,6 +120,7 @@
     opacity: 85%;
     margin: auto;
     display: block;
+    font-size: medium;
 }
 
 .stud-form__submit-button:hover {
@@ -175,6 +176,6 @@
     }
 
     .stud-form__submit-button {
-        padding: 0.5rem 0;
+        padding: 1rem 0rem;
     }
 }
