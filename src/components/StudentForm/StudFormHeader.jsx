@@ -1,5 +1,5 @@
 import React from 'react';
-import '.././styles/studFormHeader.css';
+import '../.././styles/StudentForm/studFormHeader.css';
 
 const studFormHeader = () => {
     return (

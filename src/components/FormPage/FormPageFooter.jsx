@@ -1,5 +1,5 @@
 import React from 'react';
-import '.././styles/formPageFooter.css';
+import '../.././styles/FormPage/formPageFooter.css';
 
 const FormPageFooter = () => {
     return (

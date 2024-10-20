@@ -1,6 +1,6 @@
 import React from 'react';
-import StudFormHeader from '../components/StudFormHeader.jsx';
-import StudFormMain from '../components/StudFormMain.jsx';
+import StudFormHeader from '../components/StudentForm/StudFormHeader.jsx';
+import StudFormMain from '../components/StudentForm/StudFormMain.jsx';
 
 const StudentForm = () => {
     return (

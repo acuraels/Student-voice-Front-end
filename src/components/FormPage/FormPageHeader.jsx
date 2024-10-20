@@ -1,5 +1,5 @@
 import React from 'react';
-import '.././styles/formPageHeader.css';
+import '../.././styles/FormPage/formPageHeader.css';
 
 const FormPageHeader = () => {
     return (

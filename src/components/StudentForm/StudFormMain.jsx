@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '.././styles/studFormMain.css';
+import '../.././styles/StudentForm/studFormMain.css';
 
 const StudFormMain = () => {
     const [studentName, setStudentName] = useState('');

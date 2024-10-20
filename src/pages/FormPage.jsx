@@ -1,14 +1,14 @@
 import React from 'react';
-import Header from '../components/FormPageHeader.jsx';
-import Main from '../components/FormPageMain.jsx';
-import Footer from '../components/FormPageFooter.jsx';
+import FormPageHeader from '../components/FormPage/FormPageHeader.jsx';
+import FormPageMain from '../components/FormPage/FormPageMain.jsx';
+import FormPageFooter from '../components/FormPage/FormPageFooter.jsx';
 
 const FormPage = () => {
     return (
         <>
-            <Header />
-            <Main />
-            <Footer />
+            <FormPageHeader />
+            <FormPageMain />
+            <FormPageFooter />
         </>
     );
 };
