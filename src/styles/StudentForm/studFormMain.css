@@ -3,6 +3,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     padding-bottom: 80px;
+    animation: fadeIn 1s ease-out;
 }
 
 .stud-form__container {
