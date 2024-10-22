@@ -1,19 +1,18 @@
 import React from "react";
-import "../.././styles/StudentForm/studFormHeader.css";
 
+const ShortReview = ({ text, src, isPositive, onSelect }) => {
+  const buttonClass = `stud-form__praise-button ${isPositive ? 'positive' : 'negative'}`;
 
-// компонент является коротким отзывом, получает на вход текст короткого отзыва и ссылку на изображение
-const studFormHeader = (props) => {
   return (
     <button
       type="button"
-      onClick={() => handlePraiseSelection(props.text)}
-      className="stud-form__praise-button"
+      onClick={onSelect}
+      className={buttonClass}
     >
-      <img src={props.src}></img>
-      {props.text}
+      <img src={src} alt={text} />
+      {text}
     </button>
   );
 };
 
-export default studFormHeader;
+export default ShortReview;

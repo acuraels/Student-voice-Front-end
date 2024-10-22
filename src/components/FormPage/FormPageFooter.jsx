@@ -13,7 +13,7 @@ const FormPageFooter = () => {
                     <li className="form-page-footer__list-contacts">
                         <p className="form-page-footer__heading">Контакты</p>
                         <ul>
-                            <li><a href="mailto:project.irit@urfu.ru">Написать нам</a></li>
+                            <li><a className='form-page-footer__heading-link' href="mailto:project.irit@urfu.ru">Написать нам</a></li>
                             <li><p>Екатеринбург, ул. Мира 32</p></li>
                         </ul>
                     </li>

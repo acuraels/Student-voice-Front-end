@@ -2,19 +2,18 @@ import React, { useState } from "react";
 import "../.././styles/StudentForm/studFormMain.css";
 import ShortReviewList from "./ShortReviewList";
 
-const StudFormMain = () => {
+export default function StudFormMain() {
   const [studentName, setStudentName] = useState("");
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState(0); // Храним рейтинг
+  const [rating, setRating] = useState(0);
   const [selectedPraise, setSelectedPraise] = useState([]);
 
-  // Функция для отправки данных на бэкенд
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
       studentName,
       comment,
-      rating, // Передаем выбранный рейтинг
+      rating,
       selectedPraise,
     };
 
@@ -60,7 +59,6 @@ const StudFormMain = () => {
           </div>
         </div>
 
-        {/* Форма */}
         <form onSubmit={handleSubmit} className="stud-form__form">
           <div className="stud-form__input-group">
             <input
@@ -93,7 +91,7 @@ const StudFormMain = () => {
             <p className="stud-form__current-rating">Ваша оценка: {rating}</p>
           </div>
 
-          <ShortReviewList grade={rating}/>
+          <ShortReviewList grade={rating} onPraiseSelection={handlePraiseSelection} />
 
           <div className="stud-form__input-group">
             <textarea
@@ -109,6 +107,4 @@ const StudFormMain = () => {
       </div>
     </main>
   );
-};
-
-export default StudFormMain;
+}
