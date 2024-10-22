@@ -1,5 +1,5 @@
 import React from 'react';
-import FormPageHeader from '../components/FormPage/FormPageHeader.jsx';
+import FormPageHeader from '../components/HeaderSimple.jsx';
 import FormPageMain from '../components/FormPage/FormPageMain.jsx';
 import FormPageFooter from '../components/FormPage/FormPageFooter.jsx';
 

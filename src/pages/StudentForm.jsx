@@ -1,5 +1,5 @@
 import React from 'react';
-import StudFormHeader from '../components/StudentForm/StudFormHeader.jsx';
+import StudFormHeader from '../components/HeaderSimple.jsx';
 import StudFormMain from '../components/StudentForm/StudFormMain.jsx';
 
 const StudentForm = () => {

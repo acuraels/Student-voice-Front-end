@@ -1,7 +1,7 @@
 import React from 'react';
-import '../.././styles/FormPage/formPageHeader.css';
+import '.././styles/headerSimple.css';
 
-const FormPageHeader = () => {
+const Header = () => {
     return (
         <header className="header">
             <div className="header__container">
@@ -11,4 +11,4 @@ const FormPageHeader = () => {
     );
 };
 
-export default FormPageHeader;
+export default Header;
