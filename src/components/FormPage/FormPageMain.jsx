@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../.././styles/FormPage/formPageMain.css';
+import { Eye, EyeOff } from 'lucide-react';
 
 const FormPageMain = () => {
+    const [showPassword, setShowPassword] = useState(false);
+
     return (
         <main className="main">
             <div className="main__container">
@@ -19,7 +22,21 @@ const FormPageMain = () => {
                                 </div>
                                 <div className="form__group">
                                     <label htmlFor="password" className="form__label">Пароль</label>
-                                    <input id="password" type="password" placeholder="Ваш пароль" className="form__input" />
+                                    <div className="form__password-container">
+                                        <input
+                                            id="password"
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="Ваш пароль"
+                                            className="form__input"
+                                        />
+                                        <button
+                                            type="button"
+                                            className="form__password-toggle"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                                        </button>
+                                    </div>
                                 </div>
                                 <button type="submit" className="form__button">Войти</button>
                             </form>
