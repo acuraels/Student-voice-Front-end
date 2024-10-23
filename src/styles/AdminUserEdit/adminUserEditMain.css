@@ -292,6 +292,10 @@
         font-size: 20px;
     }
 
+    .admin-user-edit__back-btn {
+        padding-bottom: 30px;
+    }
+
     .admin-user-edit__photo-placeholder {
         width: 80px;
         height: 80px;
