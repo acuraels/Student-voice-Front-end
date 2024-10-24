@@ -1,0 +1,398 @@
+.admin-report__main {
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 40px 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.admin-report__container {
+    max-width: 1200px;
+    margin: 80px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.admin-report__container:hover {
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
+}
+
+.admin-report__title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-report__filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-report__filter-group {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-report__filter {
+    position: relative;
+    width: 200px;
+}
+
+.admin-report__select {
+    width: 100%;
+    padding: 10px 30px 10px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    appearance: none;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-report__select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.admin-report__select-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.admin-report__select:hover+.admin-report__select-icon {
+    color: #333;
+}
+
+.admin-report__clear-filter {
+    position: absolute;
+    right: 35px;
+    top: 52.5%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s ease;
+}
+
+.admin-report__clear-filter:hover {
+    color: #333;
+}
+
+.admin-report__date-filters {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-report__date-filter {
+    position: relative;
+}
+
+.admin-report__date-input {
+    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-report__date-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.admin-report__calendar-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.admin-report__date-input:hover+.admin-report__calendar-icon {
+    color: #333;
+}
+
+.admin-report__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-report__action-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-report__action-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s;
+}
+
+.admin-report__action-btn:hover::before {
+    left: 100%;
+}
+
+.admin-report__action-btn--search {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.admin-report__action-btn--search:hover {
+    background-color: #012235;
+    opacity: 85%;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-report__action-btn--download {
+    background-color: #012235;
+    opacity: 85%;
+    color: #fff;
+}
+
+.admin-report__action-btn--download:hover {
+    background-color: #006DAB;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-report__table {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.admin-report__table-header {
+    display: flex;
+    background-color: #f8f9fa;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+
+.admin-report__table-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.admin-report__table-row:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.admin-report__table-cell {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.admin-report__rating {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 5px;
+}
+
+.admin-report__star {
+    width: 16px;
+    height: 16px;
+    color: #ccc;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.admin-report__star--filled {
+    color: #ffc107;
+}
+
+.admin-report__table-row:hover .admin-report__star {
+    transform: scale(1.2);
+}
+
+.admin-report__lesson-name {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.admin-report__table-row:hover .admin-report__lesson-name {
+    color: #007bff;
+}
+
+.admin-report__teacher-name {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.admin-report__date {
+    display: block;
+    font-weight: bold;
+}
+
+.admin-report__time {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.admin-report__show-more {
+    display: block;
+    width: 200px;
+    margin: 30px auto 10px;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: 2px solid #B2AFAF;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-report__show-more:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.admin-report__show-more:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.admin-report__show-more:hover:before {
+    left: 100%;
+}
+
+.admin-report__show-more:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .admin-report__container {
+        max-width: 90%;
+    }
+
+    .admin-report__filters {
+        flex-direction: column;
+
+    }
+
+    .admin-report__actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-report__action-btn {
+        width: 60%;
+    }
+
+    .admin-report__filter-group {
+        margin-bottom: 10px;
+    }
+
+    .admin-report__date-filters {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-report__filter-group {
+        flex-direction: column;
+    }
+
+    .admin-report__filter {
+        width: 100%;
+    }
+
+    .admin-report__date-filters {
+        flex-direction: column;
+    }
+
+    .admin-report__actions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .admin-report__table-row {
+        flex-direction: column;
+    }
+
+    .admin-report__table-cell {
+        border-bottom: 1px solid #eee;
+    }
+
+    .admin-report__table-cell:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-report__main {
+        padding: 20px 10px;
+    }
+
+    .admin-report__container {
+        padding: 15px;
+    }
+
+    .admin-report__title {
+        font-size: 20px;
+    }
+
+    .admin-report__show-more {
+        width: 100%;
+    }
+}

@@ -29,7 +29,7 @@
 }
 
 .admin-user-edit__container:hover {
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
 }
 
 .admin-user-edit__title {
@@ -209,6 +209,7 @@
     cursor: pointer;
     font-size: 16px;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    opacity: 85%;
 }
 
 .admin-user-edit__submit-btn::before {

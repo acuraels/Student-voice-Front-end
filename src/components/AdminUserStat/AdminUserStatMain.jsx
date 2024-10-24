@@ -4,8 +4,9 @@ import '../../styles/AdminUserStat/adminUserStatMain.css';
 const AdminUserStatMain = () => {
     return (
         <main className="admin-user-stat__main">
+            <h1 className="admin-user-stat__title">Статистика преподавателя</h1>
+
             <div className="admin-user-stat__container">
-                <h1 className="admin-user-stat__title">Статистика преподавателя</h1>
                 <div className="admin-user-stat__info-container">
                     <div className="admin-user-stat__info">
                         <div className="admin-user-stat__user">

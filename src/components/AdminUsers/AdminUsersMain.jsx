@@ -4,9 +4,9 @@ import '../../styles/AdminUsers/adminUsersMain.css';
 const AdminUsersMain = () => {
     return (
         <main className="admin-users__main">
-            <div className="admin-users__main-container">
-                <h1 className="admin-users__main-container-title">Пользователи</h1>
+            <h1 className="admin-users__main-container-title">Пользователи</h1>
 
+            <div className="admin-users__main-container">
                 <div className="admin-users__search-container">
                     <a href="#" className="admin-users__add-user">
                         <img src="/User plus.svg" alt="Добавить пользователя" className="admin-users__add-user__img" />
