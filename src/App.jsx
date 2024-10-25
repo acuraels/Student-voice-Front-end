@@ -4,6 +4,7 @@ import AdminUsers from './pages/AdminUsers.jsx';
 import AdminUserStat from './pages/AdminUserStat.jsx';
 import AdminUserEdit from './pages/AdminUserEdit.jsx';
 import AdminReport from './pages/AdminReport.jsx';
+import AdminSettings from './pages/AdminSettings.jsx';
 import './styles/app.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <AdminUserStat />
       <AdminUserEdit />
       <AdminReport />
+      <AdminSettings />
     </>
   )
 }
