@@ -1,7 +1,7 @@
 import React from 'react';
 import '.././styles/headerSimple.css';
 
-const Header = () => {
+const HeaderSimple = () => {
     return (
         <header className="header">
             <div className="header__container">
@@ -11,4 +11,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderSimple;

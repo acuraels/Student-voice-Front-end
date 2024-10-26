@@ -1,7 +1,7 @@
 import React from 'react';
 import '.././styles/headerAdmin.css';
 
-const AdminUsersHeader = () => {
+const HeaderAdmin = () => {
     return (
         <header className="admin-header">
             <div className="admin-header__container">
@@ -28,4 +28,4 @@ const AdminUsersHeader = () => {
     );
 };
 
-export default AdminUsersHeader;
+export default HeaderAdmin;
