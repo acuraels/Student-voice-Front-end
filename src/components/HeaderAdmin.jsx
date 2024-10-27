@@ -12,7 +12,6 @@ const HeaderAdmin = () => {
                 <div className="admin-header__container-right">
                     <div className="admin-header__container-links">
                         <a href="#" className="admin-header__users">Пользователи</a>
-                        <a href="#" className="admin-header__institutions">Институты</a>
                     </div>
                     <div className="admin-header__container-imgs">
                         <a href="">

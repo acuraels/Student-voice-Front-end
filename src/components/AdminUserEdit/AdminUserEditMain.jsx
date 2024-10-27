@@ -7,9 +7,9 @@ const AdminUserEditMain = () => {
 
     return (
         <main className="admin-user-edit__main">
-            <div className="admin-user-edit__container">
-                <h1 className="admin-user-edit__title">Информация о пользователе</h1>
+            <h1 className="admin-user-edit__title">Информация о пользователе</h1>
 
+            <div className="admin-user-edit__container">
                 <button className="admin-user-edit__back-btn">
                     <ArrowLeft size={20} />
                     Вернуться

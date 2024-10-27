@@ -180,6 +180,7 @@
     background-color: #ccc;
     border-radius: 34px;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .admin-settings__toggle-slider::before {

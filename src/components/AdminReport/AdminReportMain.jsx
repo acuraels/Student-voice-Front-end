@@ -26,9 +26,9 @@ const AdminReportMain = () => {
 
     return (
         <main className="admin-report__main">
-            <div className="admin-report__container">
-                <h1 className="admin-report__title">Отчёт</h1>
+            <h1 className="admin-report__title">Отчёт</h1>
 
+            <div className="admin-report__container">
                 <div className="admin-report__filters">
                     <div className="admin-report__filter-group">
                         <div className="admin-report__filter">

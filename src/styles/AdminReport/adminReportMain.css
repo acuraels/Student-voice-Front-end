@@ -19,7 +19,7 @@
 
 .admin-report__container {
     max-width: 1200px;
-    margin: 80px auto;
+    margin: 50px auto;
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
@@ -34,7 +34,7 @@
 .admin-report__title {
     font-size: 24px;
     color: #333;
-    margin-bottom: 30px;
+    margin-top: 50px;
     text-align: center;
     position: relative;
     overflow: hidden;
