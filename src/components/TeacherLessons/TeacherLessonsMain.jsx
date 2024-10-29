@@ -10,12 +10,12 @@ const TeacherLessonsMain = () => {
             <div className="teacher-lessons__main-container">
                 <div className="teacher-lessons__search-container">
                     <a href="#" className="teacher-lessons__add-lesson">
-                        <Plus size={24} />
+                        <img src="/add.svg" alt="Добавить дисциплину" />
                     </a>
                     <form className="teacher-lessons__search-form">
                         <input type="text" placeholder="Название пары" className="teacher-lessons__search-input" />
                         <button type="submit" className="teacher-lessons__search-button">
-                            <Search size={20} />
+                            <img src="/Search.svg" alt="Поиск" />
                         </button>
                     </form>
                 </div>

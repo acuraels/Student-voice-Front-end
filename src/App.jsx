@@ -8,6 +8,9 @@ import AdminSettings from './pages/AdminPages/AdminSettings.jsx';
 import TeacherLessons from './pages/TeacherPages/TeacherLessons.jsx';
 import TeacherLessonCreate from './pages/TeacherPages/TeacherLessonCreate.jsx';
 import TeacherLessonStat from './pages/TeacherPages/TeacherLessonStat.jsx';
+import TeacherDisciplines from './pages/TeacherPages/TeacherDisciplines.jsx';
+import TeacherDisciplineStat from './pages/TeacherPages/TeacherDisciplineStat.jsx';
+import TeacherDisciplineCreate from './pages/TeacherPages/TeacherDisciplineCreate.jsx';
 import './styles/app.css';
 
 function App() {
@@ -24,6 +27,9 @@ function App() {
       <TeacherLessons />
       <TeacherLessonCreate />
       <TeacherLessonStat />
+      <TeacherDisciplines />
+      <TeacherDisciplineStat />
+      <TeacherDisciplineCreate />
     </>
   )
 }

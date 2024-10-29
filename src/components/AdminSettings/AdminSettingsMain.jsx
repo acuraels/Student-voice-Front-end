@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/AdminSettings/adminSettingsMain.css';
-import { Eye, EyeOff, Upload } from 'lucide-react';
+import { ChevronLeft, Eye, EyeOff, Upload } from 'lucide-react';
 
 const AdminSettingsMain = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -32,6 +32,10 @@ const AdminSettingsMain = () => {
             <h1 className="admin-settings__title">Настройки администратора</h1>
 
             <div className="admin-settings__container">
+                <button className="admin-settings__back-button">
+                    <ChevronLeft size={24} />
+                </button>
+
                 <div className="admin-settings__profile">
                     <div className="admin-settings__avatar-container">
                         <div className="admin-user-edit__photo-placeholder">

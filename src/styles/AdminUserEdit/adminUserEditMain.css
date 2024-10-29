@@ -39,19 +39,15 @@
     margin-top: 50px;
 }
 
-.admin-user-edit__back-btn {
-    display: flex;
-    align-items: center;
+.admin-uesr-edit__back-button {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    color: #007bff;
-    transition: color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
-.admin-user-edit__back-btn:hover {
-    color: #0056b3;
+.admin-uesr-edit__back-button:hover {
+    transform: scale(1.1);
 }
 
 .admin-user-edit__photo-container {
@@ -318,10 +314,6 @@
 
     .admin-user-edit__title {
         font-size: 20px;
-    }
-
-    .admin-user-edit__back-btn {
-        padding-bottom: 30px;
     }
 
     .admin-user-edit__photo-placeholder {

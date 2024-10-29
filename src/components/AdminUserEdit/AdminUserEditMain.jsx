@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/AdminUserEdit/adminUserEditMain.css';
-import { ArrowLeft, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
+import { ChevronLeft, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
 
 const AdminUserEditMain = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -10,9 +10,8 @@ const AdminUserEditMain = () => {
             <h1 className="admin-user-edit__title">Информация о пользователе</h1>
 
             <div className="admin-user-edit__container">
-                <button className="admin-user-edit__back-btn">
-                    <ArrowLeft size={20} />
-                    Вернуться
+                <button className="admin-uesr-edit__back-button">
+                    <ChevronLeft size={24} />
                 </button>
 
                 <div className="admin-user-edit__photo-container">

@@ -1,0 +1,301 @@
+.teacher-disciplines__main {
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.teacher-disciplines__main-container {
+    border-radius: 8px;
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 900px;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.teacher-disciplines__main-container:hover {
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
+}
+
+.teacher-disciplines__main-container-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 50px 0 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.teacher-disciplines__search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.teacher-disciplines__add-discipline {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.teacher-disciplines__add-discipline:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+}
+
+.teacher-disciplines__search-form {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.teacher-disciplines__search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px 0 0 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-disciplines__search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.teacher-disciplines__search-button {
+    background-color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.teacher-disciplines__search-button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.teacher-disciplines__list-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.teacher-disciplines__list-header:hover {
+    color: #007bff;
+}
+
+.teacher-disciplines__list {
+    margin: 20px 0;
+    list-style-type: none;
+    padding: 0;
+    gap: 20px;
+    display: grid;
+}
+
+.teacher-disciplines__list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-disciplines__list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-disciplines__discipline-info {
+    display: flex;
+    align-items: center;
+}
+
+.teacher-disciplines__discipline-name {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.teacher-disciplines__list-item:hover .teacher-disciplines__discipline-name {
+    color: #007bff;
+}
+
+.teacher-disciplines__discipline-actions {
+    display: flex;
+    align-items: center;
+}
+
+.teacher-disciplines__discipline-rating {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.teacher-disciplines__list-item:hover .teacher-disciplines__discipline-rating {
+    transform: scale(1.1);
+}
+
+.teacher-disciplines__discipline-rating img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.teacher-disciplines__discipline-stats,
+.teacher-disciplines__discipline-edit {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.3s ease;
+}
+
+.teacher-disciplines__discipline-stats:hover,
+.teacher-disciplines__discipline-edit:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.teacher-disciplines__show-more {
+    width: 200px;
+    display: block;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border: 2px solid #B2AFAF;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 60px auto 0;
+    cursor: pointer;
+}
+
+.teacher-disciplines__show-more:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.teacher-disciplines__show-more:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-disciplines__show-more:hover:before {
+    left: 100%;
+}
+
+.teacher-disciplines__show-more:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 1024px) {
+    .teacher-disciplines__show-more {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .teacher-disciplines__main-container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .teacher-disciplines__main-container {
+        padding: 15px;
+    }
+
+    .teacher-disciplines__search-container {
+        align-items: baseline;
+    }
+
+    .teacher-disciplines__add-discipline {
+        align-self: flex-end;
+        margin-bottom: 10px;
+    }
+
+    .teacher-disciplines__search-form {
+        margin-left: 0;
+    }
+
+    .teacher-disciplines__list-header {
+        display: none;
+    }
+
+    .teacher-disciplines__list-item {
+        align-items: flex-start;
+    }
+
+    .teacher-disciplines__discipline-actions {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .teacher-disciplines__main {
+        padding: 10px;
+    }
+
+    .teacher-disciplines__main-container {
+        padding: 10px;
+    }
+
+    .teacher-disciplines__main-container-title {
+        font-size: 20px;
+    }
+
+    .teacher-disciplines__add-discipline__img {
+        width: 75%;
+        height: 75%;
+    }
+
+    .teacher-disciplines__discipline-name {
+        font-size: 14px;
+    }
+
+    .teacher-disciplines__discipline-rating,
+    .teacher-disciplines__discipline-stats,
+    .teacher-disciplines__discipline-edit {
+        margin-left: 5px;
+    }
+}

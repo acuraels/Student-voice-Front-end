@@ -32,6 +32,17 @@
     box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
 }
 
+.admin-settings__back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.admin-settings__back-button:hover {
+    transform: scale(1.1);
+}
+
 .admin-settings__title {
     font-size: 24px;
     color: #333;

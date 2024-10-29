@@ -1,5 +1,7 @@
 import React from 'react';
 import '../../styles/AdminUserStat/adminUserStatMain.css';
+import { ChevronLeft } from 'lucide-react';
+
 
 const AdminUserStatMain = () => {
     return (
@@ -8,6 +10,10 @@ const AdminUserStatMain = () => {
 
             <div className="admin-user-stat__container">
                 <div className="admin-user-stat__info-container">
+                    <button className="admin-user-stat__back-button">
+                        <ChevronLeft size={24} />
+                    </button>
+
                     <div className="admin-user-stat__info">
                         <div className="admin-user-stat__user">
                             <img src="/Generic avatar.svg" alt="Фото преподавателя" className="admin-user-stat__avatar" />

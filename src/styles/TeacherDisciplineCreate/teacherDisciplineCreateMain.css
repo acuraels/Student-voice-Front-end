@@ -1,0 +1,275 @@
+.teacher-discipline-create__main {
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.teacher-discipline-create__main-container {
+    border-radius: 8px;
+    padding: 50px;
+    margin: 50px auto;
+    max-width: 600px;
+    height: 400px;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff;
+    border: 6px solid rgba(183, 201, 227, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.teacher-discipline-create__main-container:hover {
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
+}
+
+.teacher-discipline-create__back-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    align-self: flex-start;
+    margin-bottom: 50px;
+}
+
+.teacher-discipline-create__back-btn:hover {
+    transform: scale(1.1);
+}
+
+.teacher-discipline-create__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.teacher-discipline-create__input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.teacher-discipline-create__label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.teacher-discipline-create__custom-select {
+    position: relative;
+    width: 100%;
+}
+
+.teacher-discipline-create__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.teacher-discipline-create__dropdown-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.teacher-discipline-create__options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 10;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.teacher-discipline-create__option {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.teacher-discipline-create__option:hover {
+    background-color: #f0f0f0;
+}
+
+.teacher-discipline-create__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.teacher-discipline-create__apply-btn {
+    padding: 10px 20px;
+    background-color: #012235;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.teacher-discipline-create__apply-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s;
+}
+
+.teacher-discipline-create__apply-btn:hover {
+    background-color: #006DAB;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.teacher-discipline-create__apply-btn:hover::before {
+    left: 100%;
+}
+
+.teacher-discipline-create__apply-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.teacher-discipline-create__delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    color: #dc3545;
+}
+
+.teacher-discipline-create__delete-btn:hover {
+    transform: scale(1.1);
+    color: #c82333;
+}
+
+.teacher-discipline-create__delete-btn.shake {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@media (max-width: 1024px) {
+    .teacher-discipline-create__main-container {
+        max-width: 80%;
+        height: auto;
+        margin: 30px auto;
+    }
+
+    .teacher-discipline-create__content {
+        gap: 15px;
+    }
+
+    .teacher-discipline-create__apply-btn,
+    .teacher-discipline-create__delete-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .teacher-discipline-create__main-container {
+        max-width: 100%;
+        height: auto;
+        padding: 50px;
+    }
+
+    .teacher-discipline-create__content {
+        gap: 20px;
+    }
+
+    .teacher-discipline-create__actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .teacher-discipline-create__apply-btn,
+    .teacher-discipline-create__delete-btn {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .teacher-discipline-create__input {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .teacher-discipline-create__main {
+        padding: 10px;
+    }
+
+    .teacher-discipline-create__main-container {
+        padding: 25px;
+    }
+
+    .teacher-discipline-create__back-btn {
+        margin-bottom: 30px;
+    }
+
+    .teacher-discipline-create__apply-btn,
+    .teacher-discipline-create__delete-btn {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .teacher-discipline-create__input {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .teacher-discipline-create__dropdown-toggle {
+        right: 8px;
+    }
+}
