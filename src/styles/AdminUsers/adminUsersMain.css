@@ -326,6 +326,7 @@
     }
 
     .admin-users__show-more {
-        width: 100%;
+        width: 60%;
+        padding: 1rem 0.5rem;
     }
 }

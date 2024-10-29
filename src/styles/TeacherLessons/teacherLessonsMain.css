@@ -1,0 +1,383 @@
+.teacher-lessons__main {
+    margin: 0 auto;
+    padding: 20px;
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.teacher-lessons__main-container {
+    border-radius: 8px;
+    padding: 20px;
+    margin: 50px auto;
+    max-width: 900px;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff;
+}
+
+.teacher-lessons__main-container:hover {
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
+}
+
+.teacher-lessons__main-container-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 50px 0 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.teacher-lessons__search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.teacher-lessons__add-lesson {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.teacher-lessons__add-lesson:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+}
+
+.teacher-lessons__search-form {
+    display: flex;
+    flex-grow: 1;
+    margin-left: 20px;
+}
+
+.teacher-lessons__search-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px 0 0 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-lessons__search-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.teacher-lessons__search-button {
+    background-color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.teacher-lessons__search-button:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.teacher-lessons__filter-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.teacher-lessons_filter-sub-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.teacher-lessons__date-input {
+    padding: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-lessons__date-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.teacher-lessons__list-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.teacher-lessons__list-header:hover {
+    color: #007bff;
+}
+
+.teacher-lessons__list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.teacher-lessons__list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.teacher-lessons__list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-lessons__lesson-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.teacher-lessons__lesson-name {
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.teacher-lessons__list-item:hover .teacher-lessons__lesson-name {
+    color: #007bff;
+}
+
+.teacher-lessons__lesson-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+}
+
+.teacher-lessons__lesson-actions {
+    display: flex;
+    align-items: center;
+}
+
+.teacher-lessons__lesson-rating {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.teacher-lessons__list-item:hover .teacher-lessons__lesson-rating {
+    transform: scale(1.1);
+}
+
+.teacher-lessons__lesson-rating img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
+
+.teacher-lessons__lesson-stats,
+.teacher-lessons__lesson-edit {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    opacity: 0.6;
+    transition: opacity 0.2s, transform 0.3s ease;
+}
+
+.teacher-lessons__lesson-stats:hover,
+.teacher-lessons__lesson-edit:hover {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.teacher-lessons__show-more {
+    width: 200px;
+    display: block;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    text-decoration: none;
+    border: 2px solid #B2AFAF;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin: 100px auto 0;
+    cursor: pointer;
+}
+
+.teacher-lessons__show-more:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+.teacher-lessons__show-more:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.teacher-lessons__show-more:hover:before {
+    left: 100%;
+}
+
+.teacher-lessons__show-more:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .teacher-lessons__main-container {
+        max-width: 90%;
+        margin: 30px auto;
+    }
+
+    .teacher-lessons__main-container-title {
+        margin: 30px 0;
+    }
+
+    .teacher-lessons__filter-container {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .teacher-lessons__main {
+        padding: 15px;
+    }
+
+    .teacher-lessons__main-container {
+        padding: 15px;
+        margin: 20px auto;
+    }
+
+    .teacher-lessons__main-container-title {
+        font-size: 22px;
+        margin: 20px 0;
+    }
+
+    .teacher-lessons__add-lesson {
+        align-self: flex-end;
+    }
+
+    .teacher-lessons__search-form {
+        margin-left: 0;
+    }
+
+    .teacher-lessons__filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .teacher-lessons_filter-sub-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .teacher-lessons__date-input {
+        width: 100%;
+    }
+
+    .teacher-lessons__list-header {
+        display: none;
+    }
+
+    .teacher-lessons__list-item {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 0;
+    }
+
+    .teacher-lessons__lesson-date {
+        align-items: flex-start;
+    }
+
+    .teacher-lessons__lesson-actions {
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .teacher-lessons__show-more {
+        width: 60%;
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .teacher-lessons__main {
+        padding: 10px;
+    }
+
+    .teacher-lessons__main-container {
+        padding: 10px;
+        margin: 10px auto;
+    }
+
+    .teacher-lessons__main-container-title {
+        font-size: 20px;
+        margin: 15px 0;
+    }
+
+    .teacher-lessons__search-input,
+    .teacher-lessons__search-button {
+        font-size: 14px;
+    }
+
+    .teacher-lessons__lesson-name {
+        font-size: 16px;
+    }
+
+    .teacher-lessons__lesson-date {
+        font-size: 12px;
+    }
+
+    .teacher-lessons__lesson-actions {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .teacher-lessons__lesson-rating,
+    .teacher-lessons__lesson-stats,
+    .teacher-lessons__lesson-edit {
+        margin: 0;
+    }
+
+    .teacher-lessons__show-more {
+        padding: 0.75rem 0.5rem;
+        margin-bottom: 20px;
+    }
+}

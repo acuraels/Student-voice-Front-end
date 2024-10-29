@@ -252,8 +252,34 @@
 }
 
 .admin-user-edit__delete-btn:hover {
-    color: #a71d2a;
+    color: #c82333;
     transform: scale(1.1);
+}
+
+@keyframes deleteShake {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.admin-user-edit__delete-btn:active {
+    animation: deleteShake 0.3s ease-in-out;
 }
 
 /* Медиа-запросы для адаптивности */

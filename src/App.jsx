@@ -6,6 +6,8 @@ import AdminUserEdit from './pages/AdminPages/AdminUserEdit.jsx';
 import AdminReport from './pages/AdminPages/AdminReport.jsx';
 import AdminSettings from './pages/AdminPages/AdminSettings.jsx';
 import TeacherLessons from './pages/TeacherPages/TeacherLessons.jsx';
+import TeacherLessonCreate from './pages/TeacherPages/TeacherLessonCreate.jsx';
+import TeacherLessonStat from './pages/TeacherPages/TeacherLessonStat.jsx';
 import './styles/app.css';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
       <AdminReport />
       <AdminSettings />
       <TeacherLessons />
+      <TeacherLessonCreate />
+      <TeacherLessonStat />
     </>
   )
 }
