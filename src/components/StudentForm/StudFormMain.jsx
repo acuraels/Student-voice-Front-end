@@ -68,6 +68,7 @@ export default function StudFormMain() {
               onChange={(e) => setStudentName(e.target.value)}
               required
               className="stud-form__input"
+              maxLength="200"
             />
           </div>
 
@@ -99,6 +100,7 @@ export default function StudFormMain() {
               placeholder="Ваш комментарий"
               onChange={(e) => setComment(e.target.value)}
               className="stud-form__textarea"
+              maxLength="500"
             />
           </div>
 

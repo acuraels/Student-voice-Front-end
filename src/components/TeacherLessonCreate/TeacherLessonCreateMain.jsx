@@ -5,7 +5,8 @@ import { ChevronLeft, Copy, Download, Trash2 } from 'lucide-react';
 const TeacherLessonCreateMain = () => {
     const [qrCode, setQrCode] = useState(null);
 
-    const generateQR = () => {
+    const generateQR = (e) => {
+        e.preventDefault();
         // Placeholder for QR code generation
         setQrCode('QR Code placeholder');
     };

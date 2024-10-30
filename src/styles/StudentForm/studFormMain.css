@@ -48,6 +48,7 @@
 
 .stud-form__textarea {
     margin-bottom: 30px;
+    resize: none;
 }
 
 .stud-form__input,

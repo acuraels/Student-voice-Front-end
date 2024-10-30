@@ -1,0 +1,268 @@
+.teacher-settings__main {
+    background-image: url('/background-1080.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 100px 20px;
+    animation: fadeIn 0.5s ease-in-out;
+    min-height: 100vh;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.teacher-settings__container {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    transition: box-shadow 0.3s ease;
+    border: 7px solid rgba(183, 201, 227, 0.5);
+}
+
+.teacher-settings__container:hover {
+    box-shadow: 0 15px 30px rgba(21, 108, 167, 0.667);
+}
+
+.teacher-settings__back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.teacher-settings__back-button:hover {
+    transform: scale(1.1);
+}
+
+.teacher-settings__title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.teacher-settings__profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.teacher-settings__avatar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.teacher-settings__photo-placeholder {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.teacher-settings__photo-placeholder:hover {
+    transform: scale(1.1);
+}
+
+.teacher-settings__avatar-upload {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.teacher-settings__avatar-upload:hover {
+    color: #0056b3;
+    transform: scale(1.05);
+}
+
+.teacher-settings__section-title {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.teacher-settings__account-access {
+    margin: 0 auto 30px;
+    width: 50%;
+}
+
+.teacher-settings__input-group {
+    margin-bottom: 15px;
+}
+
+.teacher-settings__label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+}
+
+.teacher-settings__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.teacher-settings__password-input {
+    position: relative;
+}
+
+.teacher-settings__password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #585C67;
+    transition: color 0.3s ease;
+}
+
+.teacher-settings__password-toggle:hover {
+    color: #007bff;
+}
+
+.teacher-settings__apply-btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto 0;
+    padding: 10px 20px;
+    background-color: #012235;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0.85;
+    position: relative;
+    overflow: hidden;
+}
+
+.teacher-settings__apply-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.5s;
+}
+
+.teacher-settings__apply-btn:hover {
+    background-color: #006DAB;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.teacher-settings__apply-btn:hover::before {
+    left: 100%;
+}
+
+.teacher-settings__apply-btn:active {
+    background-color: #02C2FF;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 1024px) {
+    .teacher-settings__container {
+        max-width: 90%;
+        padding: 25px;
+    }
+
+    .teacher-settings__title {
+        font-size: 22px;
+    }
+
+    .teacher-settings__section-title {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 768px) {
+    .teacher-settings__main {
+        padding: 80px 15px;
+    }
+
+    .teacher-settings__container {
+        padding: 20px;
+    }
+
+    .teacher-settings__title {
+        font-size: 20px;
+        margin-bottom: 40px;
+    }
+
+    .teacher-settings__avatar-container {
+        padding-top: 15px;
+        align-items: flex-end;
+    }
+
+    .teacher-settings__account-access {
+        width: 75%;
+    }
+}
+
+@media (max-width: 480px) {
+    .teacher-settings__main {
+        padding: 60px 0;
+    }
+
+    .teacher-settings__container {
+        padding: 15px;
+        border-width: 5px;
+    }
+
+    .teacher-settings__title {
+        font-size: 18px;
+        margin-bottom: 30px;
+    }
+
+    .teacher-settings__photo-placeholder {
+        width: 80px;
+        height: 80px;
+    }
+
+    .teacher-settings__label {
+        font-size: 16px;
+    }
+
+    .teacher-settings__input {
+        font-size: 14px;
+    }
+
+    .teacher-settings__account-access {
+        width: 100%;
+    }
+}

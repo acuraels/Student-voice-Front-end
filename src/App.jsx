@@ -11,6 +11,7 @@ import TeacherLessonStat from './pages/TeacherPages/TeacherLessonStat.jsx';
 import TeacherDisciplines from './pages/TeacherPages/TeacherDisciplines.jsx';
 import TeacherDisciplineStat from './pages/TeacherPages/TeacherDisciplineStat.jsx';
 import TeacherDisciplineCreate from './pages/TeacherPages/TeacherDisciplineCreate.jsx';
+import TeacherSettings from './pages/TeacherPages/TeacherSettings.jsx';
 import './styles/app.css';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <TeacherDisciplines />
       <TeacherDisciplineStat />
       <TeacherDisciplineCreate />
+      <TeacherSettings />
     </>
   )
 }
