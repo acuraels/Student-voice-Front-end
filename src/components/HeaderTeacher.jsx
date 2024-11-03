@@ -1,24 +1,33 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '.././styles/headerTeacher.css';
 
 const HeaderTeacher = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user_role');
+        navigate('/login');
+    };
+
     return (
         <header className="teacher-header">
             <div className="teacher-header__container">
                 <div className="teacher-header__container-left">
-                    <a href="#" className="teacher-header__logo">Student voice</a>
+                    <Link to="/teacher-lessons" className="teacher-header__logo">Student Voice</Link>
                 </div>
                 <div className="teacher-header__container-right">
                     <div className="teacher-header__container-links">
-                        <a href="#" className="teacher-header__users">Пары</a>
-                        <a href="#" className="teacher-header__institutions">Предметы</a>
+                        <Link to="/teacher-lessons" className="teacher-header__users">Пары</Link>
+                        <Link to="/teacher-disciplines" className="teacher-header__institutions">Предметы</Link>
                     </div>
                     <div className="teacher-header__container-imgs">
-                        <a href="">
-                            <img src="/settings.svg" alt="" />
-                        </a>
-                        <a href="">
-                            <img src="/signout.svg" alt="" />
+                        <Link to="/teacher-settings">
+                            <img src="/settings.svg" alt="Настройки" />
+                        </Link>
+                        <a onClick={handleLogout} className="teacher-header__logout-button">
+                            <img src="/signout.svg" alt="Выйти" />
                         </a>
                     </div>
                 </div>

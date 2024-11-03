@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../../styles/TeacherLessons/teacherLessonsMain.css';
 import { Plus, Search, Star, BarChart2, Edit } from 'lucide-react';
 
@@ -9,9 +10,9 @@ const TeacherLessonsMain = () => {
 
             <div className="teacher-lessons__main-container">
                 <div className="teacher-lessons__search-container">
-                    <a href="#" className="teacher-lessons__add-lesson">
+                    <Link to="/teacher-lesson-create" className="teacher-lessons__add-lesson">
                         <img src="/add.svg" alt="Добавить дисциплину" />
-                    </a>
+                    </Link>
                     <form className="teacher-lessons__search-form">
                         <input type="text" placeholder="Название пары" className="teacher-lessons__search-input" />
                         <button type="submit" className="teacher-lessons__search-button">
@@ -52,12 +53,12 @@ const TeacherLessonsMain = () => {
                                     <img src="/Star.svg" alt="Рейтинг" />
                                     4.9
                                 </span>
-                                <a href="#" className="teacher-lessons__lesson-stats">
+                                <Link to="/teacher-lesson-stat" className="teacher-lessons__lesson-stats">
                                     <img src="/Stat.svg" alt="Статистика" />
-                                </a>
-                                <a href="#" className="teacher-lessons__lesson-edit">
+                                </Link>
+                                <Link to="/teacher-lesson-create" className="teacher-lessons__lesson-edit">
                                     <img src="/Edit_fill.svg" alt="Редактировать" />
-                                </a>
+                                </Link>
                             </div>
                         </li>
                     ))}

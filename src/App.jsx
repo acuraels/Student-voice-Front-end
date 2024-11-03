@@ -16,7 +16,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Logout from './components/LogOut.jsx';
 import Unauthorized from './components/Unauthorized.jsx';
 import NotFound from './components/NotFound.jsx';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './styles/app.css';
 
 function App() {
@@ -92,7 +92,7 @@ function App() {
 
 
 
-
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<FormPage />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
