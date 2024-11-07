@@ -7,6 +7,9 @@ function Logout() {
     useEffect(() => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
+        if (localStorage.getItem('user_role') == 'teacher') {
+            localStorage.removeItem('user_id');
+        }
         localStorage.removeItem('user_role');
         navigate('/login');
     }, [navigate]);

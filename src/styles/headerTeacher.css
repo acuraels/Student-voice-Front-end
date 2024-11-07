@@ -115,6 +115,7 @@
 .teacher-header__container-imgs {
     display: flex;
     gap: 30px;
+    cursor: pointer;
 }
 
 .teacher-header__container-imgs a {

@@ -115,6 +115,7 @@
 .admin-header__container-imgs {
     display: flex;
     gap: 30px;
+    cursor: pointer;
 }
 
 .admin-header__container-imgs a {

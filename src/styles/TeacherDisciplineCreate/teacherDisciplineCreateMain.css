@@ -75,14 +75,14 @@
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 16px;
 }
 
 .teacher-discipline-create__dropdown-toggle {
     position: absolute;
     right: 10px;
-    top: 50%;
+    top: 57%;
     transform: translateY(-50%);
     background: none;
     border: none;
@@ -236,7 +236,8 @@
 
     .teacher-discipline-create__apply-btn,
     .teacher-discipline-create__delete-btn {
-        width: 100%;
+        width: 40%;
+        padding: 2rem 1rem;
         font-size: 14px;
     }
 
@@ -261,12 +262,12 @@
     .teacher-discipline-create__apply-btn,
     .teacher-discipline-create__delete-btn {
         font-size: 12px;
-        padding: 8px;
+        padding: 10px;
     }
 
     .teacher-discipline-create__input {
         font-size: 14px;
-        padding: 8px;
+        padding: 10px;
     }
 
     .teacher-discipline-create__dropdown-toggle {

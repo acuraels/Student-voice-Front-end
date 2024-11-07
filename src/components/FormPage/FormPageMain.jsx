@@ -33,6 +33,7 @@ const FormPageMain = () => {
                     if (userRole === 'admin') {
                         navigate('/admin-users');
                     } else if (userRole === 'teacher') {
+                        localStorage.setItem('user_id', res.data.id);
                         navigate('/teacher-lessons');
                     } else {
                         navigate('/unauthorized');
