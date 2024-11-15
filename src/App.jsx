@@ -97,6 +97,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/student-form" element={<StudentForm />} />
         <Route exact path="/lesson/:unique_code/" component={StudentForm} />
       </Routes>
     </BrowserRouter>
