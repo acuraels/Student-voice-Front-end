@@ -8,7 +8,7 @@ const AdminUsersMain = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
     const fetchUsers = () => {
-        axiosInstance.get('api/users/')
+        axiosInstance.get('api/accounts/users/')
             .then((response) => {
                 setUsers(response.data);
             })
@@ -23,7 +23,7 @@ const AdminUsersMain = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        axiosInstance.get(`api/users/?search=${searchQuery}`)
+        axiosInstance.get(`api/accounts/users/?search=${searchQuery}`)
             .then((response) => {
                 setUsers(response.data);
             })
@@ -67,7 +67,7 @@ const AdminUsersMain = () => {
                                 <img src="/Generic avatar.svg" alt="Аватар пользователя" className="admin-users__user-avatar" />
                                 <div className="admin-users__user-details">
                                     <span className="admin-users__user-name">
-                                        {`${user.last_name} ${user.first_name} ${user.surname || ''}`}
+                                        {`${user.surname} ${user.first_name} ${user.last_name || ""}`}
                                     </span>
                                     <span className="admin-users__user-role">Роль: {user.role}</span>
                                 </div>

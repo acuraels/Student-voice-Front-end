@@ -12,7 +12,7 @@ const TeacherDisciplinesMain = () => {
     // Функция для загрузки предметов с учетом строки поиска
     const fetchDisciplines = async () => {
         try {
-            const response = await axiosInstance.get('/api/teacher-subjects/', {
+            const response = await axiosInstance.get('/api/subjects/teacher-subjects/', {
                 params: { search: searchQuery } // Передаем параметр поиска
             });
             setDisciplines(response.data);

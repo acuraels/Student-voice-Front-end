@@ -20,14 +20,14 @@ const FormPageMain = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axiosInstance
-            .post('api/token/', credentials)
+            .post('api/accounts/token/', credentials)
             .then((response) => {
                 localStorage.setItem('access_token', response.data.access);
                 localStorage.setItem('refresh_token', response.data.refresh);
 
                 axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + response.data.access;
 
-                axiosInstance.get('api/user-info/').then((res) => {
+                axiosInstance.get('api/accounts/user-info/').then((res) => {
                     localStorage.setItem('user_role', res.data.role);
                     const userRole = res.data.role;
                     if (userRole === 'admin') {

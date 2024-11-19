@@ -22,7 +22,7 @@ const TeacherLessonCreateMain = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userResponse = await axiosInstance.get('/api/current-user/');
+                const userResponse = await axiosInstance.get('/api/accounts/current-user/');
                 const user = userResponse.data;
                 setUserData(user);
 
@@ -33,7 +33,7 @@ const TeacherLessonCreateMain = () => {
                     setSelectedInstitute(user.institute.id);
                 }
 
-                const subjectsResponse = await axiosInstance.get('/api/teacher-subjects/');
+                const subjectsResponse = await axiosInstance.get('/api/subjects/teacher-subjects/');
                 setSubjects(subjectsResponse.data);
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);

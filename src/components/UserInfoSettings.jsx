@@ -5,7 +5,7 @@ const UserInfoSettings = () => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        axiosInstance.get('api/user-info/')
+        axiosInstance.get('api/accounts/user-info/')
             .then((response) => {
                 setUserData(response.data);
             })

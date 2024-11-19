@@ -13,7 +13,7 @@ import TeacherDisciplineStat from './pages/TeacherPages/TeacherDisciplineStat.js
 import TeacherDisciplineCreate from './pages/TeacherPages/TeacherDisciplineCreate.jsx';
 import TeacherSettings from './pages/TeacherPages/TeacherSettings.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-import Logout from './components/LogOut.jsx';
+import Logout from './components/Logout.jsx';
 import Unauthorized from './components/Unauthorized.jsx';
 import NotFound from './components/NotFound.jsx';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';

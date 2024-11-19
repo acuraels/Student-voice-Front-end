@@ -16,7 +16,7 @@ const TeacherSettingsMain = () => {
     };
 
     useEffect(() => {
-        axiosInstance.get('api/user-info/')
+        axiosInstance.get('api/accounts/user-info/')
             .then((response) => {
                 setUsername(response.data.username);
                 setUserData(response.data);
@@ -30,7 +30,7 @@ const TeacherSettingsMain = () => {
         e.preventDefault();
 
         if (username !== userData.username) {
-            axiosInstance.put('api/update-profile/', { username })
+            axiosInstance.put('api/accounts/update-profile/', { username })
                 .then((response) => {
                     alert('Логин успешно обновлен');
                     setUserData((prevData) => ({
@@ -47,7 +47,7 @@ const TeacherSettingsMain = () => {
         }
 
         if (newPassword && oldPassword) {
-            axiosInstance.post('api/change-password/', {
+            axiosInstance.post('api/accounts/change-password/', {
                 old_password: oldPassword,
                 new_password: newPassword
             })

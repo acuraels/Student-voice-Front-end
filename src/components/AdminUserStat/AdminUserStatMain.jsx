@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/AdminUserStat/adminUserStatMain.css';
+import '../../styles/adminUserStat/adminUserStatMain.css';
 import { ChevronLeft } from 'lucide-react';
 
 

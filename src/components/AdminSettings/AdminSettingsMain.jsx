@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../../styles/AdminSettings/adminSettingsMain.css';
+import '../../styles/adminSettings/adminSettingsMain.css';
 import { ChevronLeft, Eye, EyeOff, Upload } from 'lucide-react';
 import axiosInstance from '../../utils/axiosInstance';
 import UserInfoSettings from '../UserInfoSettings'; // Импортируем компонент
@@ -19,7 +19,7 @@ const AdminSettingsMain = () => {
 
     useEffect(() => {
         // Получаем текущие данные пользователя
-        axiosInstance.get('api/user-info/')
+        axiosInstance.get('api/accounts/user-info/')
             .then((response) => {
                 setUsername(response.data.username);
                 setUserData(response.data);
@@ -50,7 +50,7 @@ const AdminSettingsMain = () => {
 
         // Обновление логина, если он изменился
         if (username !== userData.username) {
-            axiosInstance.put('api/update-profile/', { username })
+            axiosInstance.put('api/accounts/update-profile/', { username })
                 .then((response) => {
                     alert('Логин успешно обновлен');
                     setUserData((prevData) => ({
@@ -68,7 +68,7 @@ const AdminSettingsMain = () => {
 
         // Обновление пароля, если указаны старый и новый пароли
         if (newPassword && oldPassword) {
-            axiosInstance.post('api/change-password/', {
+            axiosInstance.post('api/accounts/change-password/', {
                 old_password: oldPassword,
                 new_password: newPassword
             })
