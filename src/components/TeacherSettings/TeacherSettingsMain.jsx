@@ -15,6 +15,7 @@ const TeacherSettingsMain = () => {
         setShowPassword(!showPassword);
     };
 
+    // Получение данных пользователя
     useEffect(() => {
         axiosInstance.get('api/accounts/user-info/')
             .then((response) => {
@@ -26,42 +27,40 @@ const TeacherSettingsMain = () => {
             });
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // Обработка отправки формы
+    const handleSubmit = async (e) => {
+        e.preventDefault(); // Предотвращаем стандартное поведение формы
 
-        if (username !== userData.username) {
-            axiosInstance.put('api/accounts/update-profile/', { username })
-                .then((response) => {
-                    alert('Логин успешно обновлен');
-                    setUserData((prevData) => ({
-                        ...prevData,
-                        username: username,
-                    }));
-                })
-                .catch((error) => {
-                    console.error('Ошибка при обновлении логина:', error);
-                    if (error.response && error.response.data) {
-                        alert(JSON.stringify(error.response.data));
-                    }
-                });
-        }
+        try {
+            // Проверяем, нужно ли обновлять логин
+            if (username !== userData.username) {
+                await axiosInstance.put('api/accounts/update-profile/', { username });
+                alert('Логин успешно обновлен');
+                setUserData((prevData) => ({
+                    ...prevData,
+                    username: username,
+                }));
+            }
 
-        if (newPassword && oldPassword) {
-            axiosInstance.post('api/accounts/change-password/', {
-                old_password: oldPassword,
-                new_password: newPassword
-            })
-                .then((response) => {
-                    alert('Пароль успешно изменен');
-                })
-                .catch((error) => {
-                    console.error('Ошибка при смене пароля:', error);
-                    if (error.response && error.response.data) {
-                        alert(JSON.stringify(error.response.data));
-                    }
+            // Проверяем, нужно ли обновлять пароль
+            if (newPassword && oldPassword) {
+                await axiosInstance.post('api/accounts/change-password/', {
+                    old_password: oldPassword,
+                    new_password: newPassword,
                 });
-        } else if (newPassword || oldPassword) {
-            alert('Пожалуйста, заполните оба поля для смены пароля.');
+                alert('Пароль успешно изменен');
+            } else if (newPassword || oldPassword) {
+                alert('Пожалуйста, заполните оба поля для смены пароля.');
+            }
+
+            // Сбрасываем поля формы после успешного обновления
+            setOldPassword('');
+            setNewPassword('');
+        } catch (error) {
+            console.error('Ошибка при обновлении данных:', error);
+            if (error.response && error.response.data) {
+                alert(JSON.stringify(error.response.data));
+            }
         }
     };
 

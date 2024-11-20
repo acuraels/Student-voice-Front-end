@@ -1,3 +1,4 @@
+// src/components/TeacherLessonsMain.jsx
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../utils/axiosInstance';
 import { Link } from 'react-router-dom';
@@ -99,7 +100,7 @@ const TeacherLessonsMain = () => {
                 <ul className="teacher-lessons__list">
                     {lessons.length > 0 ? (
                         lessons.map((lesson) => (
-                            <li key={lesson.id} className="teacher-lessons__list-item">
+                            <li key={lesson.unique_code} className="teacher-lessons__list-item">
                                 <div className="teacher-lessons__lesson-info">
                                     <span className="teacher-lessons__lesson-name">{lesson.topic}</span>
                                 </div>
@@ -112,10 +113,10 @@ const TeacherLessonsMain = () => {
                                         <Star size={16} />
                                         {lesson.average_rating ? lesson.average_rating.toFixed(1) : 'N/A'}
                                     </span>
-                                    <Link to={`/teacher-lesson-stat/${lesson.id}`} className="teacher-lessons__lesson-stats">
+                                    <Link to={`/teacher-lesson-stat/${lesson.unique_code}`} className="teacher-lessons__lesson-stats">
                                         <BarChart2 size={16} />
                                     </Link>
-                                    <Link to={`/teacher-lesson-edit/${lesson.id}`} className="teacher-lessons__lesson-edit">
+                                    <Link to={`/teacher-lesson-edit/${lesson.unique_code}`} className="teacher-lessons__lesson-edit">
                                         <Edit size={16} />
                                     </Link>
                                 </div>

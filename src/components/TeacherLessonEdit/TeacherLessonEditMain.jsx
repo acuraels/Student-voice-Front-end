@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; // Added useParams and useNavigate
 import axiosInstance from '../../utils/axiosInstance';
 import '../../styles/TeacherLessonCreate/teacherLessonCreateMain.css';
 import { ChevronLeft, Copy, Download, Trash2 } from 'lucide-react';
 
-const TeacherLessonCreateMain = () => {
+const TeacherLessonEditMain = () => {
+    const { unique_code } = useParams(); // Get unique_code from URL
+    const navigate = useNavigate(); // For navigation after deletion
+
     const [qrCode, setQrCode] = useState(null);
     const [institutes, setInstitutes] = useState([]);
     const [selectedInstitute, setSelectedInstitute] = useState('');
     const [subjects, setSubjects] = useState([]);
     const [userData, setUserData] = useState(null);
+    const [feedbackLink, setFeedbackLink] = useState('');
     const [formData, setFormData] = useState({
         teacher_id: '',
         date: '',
@@ -22,10 +27,12 @@ const TeacherLessonCreateMain = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Fetch user data
                 const userResponse = await axiosInstance.get('/api/accounts/current-user/');
                 const user = userResponse.data;
                 setUserData(user);
 
+                // Fetch institutes
                 const institutesResponse = await axiosInstance.get('/api/institutes/');
                 setInstitutes(institutesResponse.data);
 
@@ -33,15 +40,43 @@ const TeacherLessonCreateMain = () => {
                     setSelectedInstitute(user.institute.id);
                 }
 
+                // Fetch subjects
                 const subjectsResponse = await axiosInstance.get('/api/subjects/teacher-subjects/');
                 setSubjects(subjectsResponse.data);
+
+                // Fetch lesson data
+                const lessonResponse = await axiosInstance.get(`/api/lessons/${unique_code}/`);
+                const lesson = lessonResponse.data;
+
+                // Set feedback link
+                setFeedbackLink(lesson.unique_link + "feedback");
+
+                // Set QR code
+                setQrCode(lesson.qr_code_base64);
+
+                // Set selected institute
+                setSelectedInstitute(lesson.institute);
+
+                // Set form data
+                const startDate = new Date(lesson.start_time);
+                const endDate = new Date(lesson.end_time);
+
+                setFormData({
+                    teacher_id: lesson.teacher, // Use the teacher ID from lesson data
+                    date: startDate.toISOString().split('T')[0],
+                    topic: lesson.topic,
+                    location: lesson.location,
+                    startTime: startDate.toTimeString().slice(0, 5),
+                    endTime: endDate.toTimeString().slice(0, 5),
+                    discipline: lesson.subject,
+                });
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [unique_code]);
 
     const handleInstituteChange = (e) => {
         setSelectedInstitute(e.target.value);
@@ -55,89 +90,67 @@ const TeacherLessonCreateMain = () => {
         }));
     };
 
-    const generateQR = (qrCodeBase64) => {
-        setQrCode(qrCodeBase64);
+    const handleCopyLink = () => {
+        navigator.clipboard.writeText(feedbackLink);
+        alert('Ссылка скопирована в буфер обмена.');
     };
 
-    // Функции валидации
-    const validateTime = () => {
-        const { date, startTime, endTime } = formData;
-        if (!date || !startTime || !endTime) {
-            return false;
+    const handleIncreaseTime = async () => {
+        try {
+            await axiosInstance.patch(`/api/lessons/${unique_code}/increase-time/`);
+            alert('Время действия ссылки увеличено на 10 минут.');
+            // Optionally, refetch lesson data to update the state
+        } catch (error) {
+            console.error('Ошибка при увеличении времени действия ссылки:', error);
+            alert('Ошибка при увеличении времени действия ссылки.');
         }
-        const startDateTime = new Date(`${date}T${startTime}:00`);
-        const endDateTime = new Date(`${date}T${endTime}:00`);
-        return endDateTime > startDateTime;
     };
 
-    const validateYear = () => {
-        const { date } = formData;
-        if (!date) return false;
-        const selectedYear = new Date(date).getFullYear();
-        const currentYear = new Date().getFullYear();
-        return selectedYear <= currentYear;
-    };
-
-    const validateTopicLength = () => {
-        const { topic } = formData;
-        return topic.trim().length <= 250;
-    };
-
-    const validateForm = () => {
-        if (!validateTime()) {
-            alert('Время окончания должно быть больше времени начала.');
-            return false;
+    const handleDownloadQR = () => {
+        if (!qrCode) {
+            alert('QR-код не найден.');
+            return;
         }
-        if (!validateYear()) {
-            alert('Год не может быть больше текущего.');
-            return false;
-        }
-        if (!validateTopicLength()) {
-            alert('Максимальная длина темы — 250 символов.');
-            return false;
-        }
-        return true;
+        const link = document.createElement('a');
+        link.href = `data:image/png;base64,${qrCode}`;
+        link.download = 'qr_code.png';
+        link.click();
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        // Проверяем, что все необходимые поля заполнены
-        if (!selectedInstitute) {
-            alert('Пожалуйста, выберите институт.');
-            return;
-        }
-        if (!formData.discipline) {
-            alert('Пожалуйста, выберите дисциплину.');
-            return;
-        }
-        if (!formData.topic.trim()) {
-            alert('Пожалуйста, введите тему.');
-            return;
-        }
-        if (!formData.location.trim()) {
-            alert('Пожалуйста, введите место проведения.');
-            return;
-        }
-        if (!formData.date || !formData.startTime || !formData.endTime) {
-            alert('Пожалуйста, заполните дату и время проведения.');
-            return;
-        }
-
-        // Проверяем валидацию
-        if (!validateForm()) {
-            return;
-        }
-
         try {
             const { date, startTime, endTime } = formData;
+
+            // Проверяем, что все необходимые поля заполнены
+            if (!selectedInstitute) {
+                alert('Пожалуйста, выберите институт.');
+                return;
+            }
+            if (!formData.discipline) {
+                alert('Пожалуйста, выберите дисциплину.');
+                return;
+            }
+            if (!formData.topic.trim()) {
+                alert('Пожалуйста, введите тему.');
+                return;
+            }
+            if (!formData.location.trim()) {
+                alert('Пожалуйста, введите место проведения.');
+                return;
+            }
+            if (!date || !startTime || !endTime) {
+                alert('Пожалуйста, заполните дату и время проведения.');
+                return;
+            }
 
             // Объединяем дату и время
             const startDateTime = `${date}T${startTime}:00`;
             const endDateTime = `${date}T${endTime}:00`;
-            const teacherId = localStorage.getItem('user_id');
+            const teacherId = formData.teacher_id || localStorage.getItem('user_id');
 
-            const response = await axiosInstance.post('/api/lessons/', {
+            // Prepare data for update
+            const updateData = {
                 teacher: teacherId,
                 institute: selectedInstitute,
                 subject: formData.discipline,
@@ -145,24 +158,32 @@ const TeacherLessonCreateMain = () => {
                 location: formData.location,
                 start_time: startDateTime,
                 end_time: endDateTime,
-            });
-            alert('Урок успешно сохранён.');
+            };
 
-            // Получаем QR-код из ответа
-            const qrCodeBase64 = response.data.qr_code;
-            if (qrCodeBase64) {
-                generateQR(qrCodeBase64);
-            } else {
-                alert('Не удалось получить QR-код.');
-            }
+            await axiosInstance.put(`/api/lessons/${unique_code}/`, updateData);
+            alert('Данные урока обновлены.');
         } catch (error) {
             if (error.response && error.response.data) {
                 console.error('Ошибка валидации:', error.response.data);
-                alert(`Ошибка при сохранении урока: ${JSON.stringify(error.response.data)}`);
+                alert(`Ошибка при обновлении урока: ${JSON.stringify(error.response.data)}`);
             } else {
                 console.error('Ошибка при отправке формы:', error);
-                alert('Ошибка при сохранении урока.');
+                alert('Ошибка при обновлении урока.');
             }
+        }
+    };
+
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm('Вы уверены, что хотите удалить этот урок?');
+        if (!confirmDelete) return;
+
+        try {
+            await axiosInstance.delete(`/api/lessons/${unique_code}/delete/`);
+            alert('Урок удалён.');
+            navigate('/teacher-lessons'); // Redirect to the lessons list
+        } catch (error) {
+            console.error('Ошибка при удалении урока:', error);
+            alert('Ошибка при удалении урока.');
         }
     };
 
@@ -172,10 +193,16 @@ const TeacherLessonCreateMain = () => {
 
             <div className="teacher-lesson-create__container">
                 <div className="teacher-lesson-create__header">
-                    <button className="teacher-lesson-create__back-button">
+                    <button
+                        className="teacher-lesson-create__back-button"
+                        onClick={() => navigate(-1)}
+                    >
                         <ChevronLeft size={24} />
                     </button>
-                    <button className="teacher-lesson-create__copy-button">
+                    <button
+                        className="teacher-lesson-create__copy-button"
+                        onClick={handleCopyLink}
+                    >
                         <Copy size={24} />
                     </button>
                 </div>
@@ -289,6 +316,50 @@ const TeacherLessonCreateMain = () => {
                         </div>
                     </div>
 
+                    <div className="teacher-lesson-create__qr-section">
+                        <div className="teacher-lesson-create__qr-container">
+                            {qrCode ? (
+                                <img
+                                    src={`data:image/png;base64,${qrCode}`}
+                                    alt="QR Code"
+                                    className="teacher-lesson-create__qr-code"
+                                />
+                            ) : (
+                                <p className="teacher-lesson-create__generate-qr">
+                                    Здесь будет ваш QR
+                                </p>
+                            )}
+                        </div>
+                        <div className="teacher-lesson-create__qr-actions">
+                            <button
+                                type="button"
+                                className="teacher-lesson-create__qr-action-button"
+                                onClick={handleDownloadQR}
+                            >
+                                <Download size={24} />
+                                Скачать
+                            </button>
+                            <button
+                                type="button"
+                                className="teacher-lesson-create__qr-action-button"
+                                onClick={handleCopyLink}
+                            >
+                                <Copy size={24} />
+                                Ссылка
+                            </button>
+                            <button
+                                type="button"
+                                className="teacher-lesson-create__qr-action-button"
+                                onClick={() => {
+                                    handleIncreaseTime(); // Выполняем вашу функцию
+                                    window.location.reload(); // Обновляем страницу
+                                }}
+                            >
+                                Включить на 10 минут
+                            </button>
+                        </div>
+                    </div>
+
                     <div className="teacher-lesson-create__form-actions">
                         <button
                             type="submit"
@@ -296,21 +367,19 @@ const TeacherLessonCreateMain = () => {
                         >
                             Применить
                         </button>
+                        <button
+                            type="button"
+                            className="teacher-lesson-create__delete-button"
+                            onClick={handleDelete}
+                        >
+                            <Trash2 size={24} />
+                        </button>
                     </div>
                 </form>
-
-                {/* Отображение QR-кода после успешного создания урока 
-                {qrCode && (
-                    <div className="teacher-lesson-create__qr-code">
-                        <h2>QR-код для обратной связи</h2>
-                        <img src={`data:image/png;base64,${qrCode}`} alt="QR Code" />
-                    </div>
-                )}
-                */}
             </div>
         </main>
     );
 };
 
-export default TeacherLessonCreateMain;
+export default TeacherLessonEditMain;
 

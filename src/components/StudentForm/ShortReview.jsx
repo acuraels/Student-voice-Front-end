@@ -1,15 +1,11 @@
 import React from "react";
 
-const ShortReview = ({ text, src, isPositive, onSelect }) => {
-  const buttonClass = `stud-form__praise-button ${isPositive ? 'positive' : 'negative'}`;
+const ShortReview = ({ text, isPositive, onSelect, isSelected }) => {
+  const buttonClass = `stud-form__praise-button ${isPositive ? "positive" : "negative"
+    } ${isSelected ? "selected" : ""}`;
 
   return (
-    <button
-      type="button"
-      onClick={onSelect}
-      className={buttonClass}
-    >
-      <img src={src} alt={text} />
+    <button type="button" onClick={() => onSelect(text)} className={buttonClass}>
       {text}
     </button>
   );

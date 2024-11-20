@@ -8,6 +8,7 @@ import AdminSettings from './pages/AdminPages/AdminSettings.jsx';
 import TeacherLessons from './pages/TeacherPages/TeacherLessons.jsx';
 import TeacherLessonCreate from './pages/TeacherPages/TeacherLessonCreate.jsx';
 import TeacherLessonStat from './pages/TeacherPages/TeacherLessonStat.jsx';
+import TeacherLessonEdit from './pages/TeacherPages/TeacherLessonEdit.jsx';
 import TeacherDisciplines from './pages/TeacherPages/TeacherDisciplines.jsx';
 import TeacherDisciplineStat from './pages/TeacherPages/TeacherDisciplineStat.jsx';
 import TeacherDisciplineCreate from './pages/TeacherPages/TeacherDisciplineCreate.jsx';
@@ -63,9 +64,14 @@ function App() {
             <TeacherLessonCreate />
           </ProtectedRoute>
         } />
-        <Route path="/teacher-lesson-stat" element={
+        <Route path="/teacher-lesson-stat/:unique_code" element={
           <ProtectedRoute allowedRoles={['teacher']}>
             <TeacherLessonStat />
+          </ProtectedRoute>
+        } />
+        <Route path="/teacher-lesson-edit/:unique_code" element={
+          <ProtectedRoute allowedRoles={['teacher']}>
+            <TeacherLessonEdit />
           </ProtectedRoute>
         } />
         <Route path="/teacher-disciplines" element={
@@ -97,11 +103,10 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
-        <Route path="/student-form" element={<StudentForm />} />
-        <Route exact path="/lesson/:unique_code/" component={StudentForm} />
+        <Route path="/form/:unique_code/feedback" element={<StudentForm />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
+// /api/lessons/code/:unique_code/feedback/
 export default App;

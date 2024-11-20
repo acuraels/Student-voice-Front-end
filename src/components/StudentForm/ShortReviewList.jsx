@@ -1,26 +1,24 @@
 import React from "react";
 import ShortReview from "./ShortReview";
 
-const ShortReviewList = ({ grade, onPraiseSelection }) => {
+const ShortReviewList = ({ grade, onPraiseSelection, selectedPraise }) => {
   if (grade === 0) {
-    return <div className="stud-form__praise-group"></div>;
+    return null;
   }
 
   const positiveReviews = [
-    [<p key="1">Подача материала</p>, "/record_voice_over.svg"],
-    [<p key="2">Презентация</p>, "/airplay.svg"],
-    [<p key="3">Ответы на вопросы</p>, "/question_answer.svg"],
-    [<p key="4">Интересные задания</p>, "/assignment.svg"],
-
+    "Подача материала",
+    "Презентация",
+    "Ответы на вопросы",
+    "Интересные задания",
   ];
 
   const negativeReviews = [
-    [<p key="1">Подача материала</p>, "/record_voice_over.svg"],
-    [<p key="2">Презентация</p>, "/airplay.svg"],
-    [<p key="3">Ответы на вопросы</p>, "/question_answer.svg"],
-    [<p key="4">Интересные задания</p>, "/assignment.svg"],
+    "Подача материала",
+    "Презентация",
+    "Ответы на вопросы",
+    "Интересные задания",
   ];
-
 
   const reviews = grade > 3 ? positiveReviews : negativeReviews;
   const heading = grade > 3 ? "Что понравилось в занятии?" : "Что не понравилось в занятии?";
@@ -32,10 +30,10 @@ const ShortReviewList = ({ grade, onPraiseSelection }) => {
         {reviews.map((review, index) => (
           <ShortReview
             key={index}
-            text={review[0]}
-            src={review[1]}
+            text={review}
             isPositive={grade > 3}
-            onSelect={() => onPraiseSelection(review[0])}
+            onSelect={onPraiseSelection}
+            isSelected={selectedPraise.includes(review)}
           />
         ))}
       </div>
