@@ -17,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Logout from './components/Logout.jsx';
 import Unauthorized from './components/Unauthorized.jsx';
 import NotFound from './components/NotFound.jsx';
+import FormIsDone from './components/FormIsDone.jsx';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './styles/app.css';
 
@@ -104,6 +105,7 @@ function App() {
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/form/:unique_code/feedback" element={<StudentForm />} />
+        <Route path="/form-completed" element={<FormIsDone />} />
       </Routes>
     </BrowserRouter>
   );

@@ -15,7 +15,6 @@
 .admin-header__container-left {
     display: flex;
     gap: 35px;
-    align-items: baseline;
 }
 
 .admin-header__logo {

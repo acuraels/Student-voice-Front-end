@@ -56,6 +56,18 @@
     width: 200px;
 }
 
+.admin-report__back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.admin-report__back-button:hover {
+    transform: scale(1.1);
+}
+
 .admin-report__select {
     width: 100%;
     padding: 10px 30px 10px 10px;

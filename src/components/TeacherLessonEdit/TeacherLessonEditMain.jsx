@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom'; // Added useParams and useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import '../../styles/TeacherLessonCreate/teacherLessonCreateMain.css';
 import { ChevronLeft, Copy, Download, Trash2 } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TeacherLessonEditMain = () => {
-    const { unique_code } = useParams(); // Get unique_code from URL
-    const navigate = useNavigate(); // For navigation after deletion
+    const { unique_code } = useParams();
+    const navigate = useNavigate();
 
     const [qrCode, setQrCode] = useState(null);
     const [institutes, setInstitutes] = useState([]);
@@ -27,42 +29,27 @@ const TeacherLessonEditMain = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch user data
                 const userResponse = await axiosInstance.get('/api/accounts/current-user/');
-                const user = userResponse.data;
-                setUserData(user);
+                setUserData(userResponse.data);
 
-                // Fetch institutes
                 const institutesResponse = await axiosInstance.get('/api/institutes/');
                 setInstitutes(institutesResponse.data);
 
-                if (user.institute && user.institute.id) {
-                    setSelectedInstitute(user.institute.id);
-                }
-
-                // Fetch subjects
                 const subjectsResponse = await axiosInstance.get('/api/subjects/teacher-subjects/');
                 setSubjects(subjectsResponse.data);
 
-                // Fetch lesson data
                 const lessonResponse = await axiosInstance.get(`/api/lessons/${unique_code}/`);
                 const lesson = lessonResponse.data;
 
-                // Set feedback link
-                setFeedbackLink(lesson.unique_link + "feedback");
-
-                // Set QR code
+                setFeedbackLink(`${lesson.unique_link}feedback`);
                 setQrCode(lesson.qr_code_base64);
-
-                // Set selected institute
                 setSelectedInstitute(lesson.institute);
 
-                // Set form data
                 const startDate = new Date(lesson.start_time);
                 const endDate = new Date(lesson.end_time);
 
                 setFormData({
-                    teacher_id: lesson.teacher, // Use the teacher ID from lesson data
+                    teacher_id: lesson.teacher,
                     date: startDate.toISOString().split('T')[0],
                     topic: lesson.topic,
                     location: lesson.location,
@@ -72,15 +59,12 @@ const TeacherLessonEditMain = () => {
                 });
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
+                toast.error('Ошибка при загрузке данных.');
             }
         };
 
         fetchData();
     }, [unique_code]);
-
-    const handleInstituteChange = (e) => {
-        setSelectedInstitute(e.target.value);
-    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -92,29 +76,29 @@ const TeacherLessonEditMain = () => {
 
     const handleCopyLink = () => {
         navigator.clipboard.writeText(feedbackLink);
-        alert('Ссылка скопирована в буфер обмена.');
+        toast.success('Ссылка скопирована в буфер обмена.');
     };
 
     const handleIncreaseTime = async () => {
         try {
             await axiosInstance.patch(`/api/lessons/${unique_code}/increase-time/`);
-            alert('Время действия ссылки увеличено на 10 минут.');
-            // Optionally, refetch lesson data to update the state
+            toast.success('Время действия ссылки увеличено на 10 минут.');
         } catch (error) {
             console.error('Ошибка при увеличении времени действия ссылки:', error);
-            alert('Ошибка при увеличении времени действия ссылки.');
+            toast.error('Ошибка при увеличении времени действия ссылки.');
         }
     };
 
     const handleDownloadQR = () => {
         if (!qrCode) {
-            alert('QR-код не найден.');
+            toast.error('QR-код не найден.');
             return;
         }
         const link = document.createElement('a');
         link.href = `data:image/png;base64,${qrCode}`;
         link.download = 'qr_code.png';
         link.click();
+        toast.success('QR-код скачан.');
     };
 
     const handleSubmit = async (e) => {
@@ -122,36 +106,32 @@ const TeacherLessonEditMain = () => {
         try {
             const { date, startTime, endTime } = formData;
 
-            // Проверяем, что все необходимые поля заполнены
             if (!selectedInstitute) {
-                alert('Пожалуйста, выберите институт.');
+                toast.warn('Пожалуйста, выберите институт.');
                 return;
             }
             if (!formData.discipline) {
-                alert('Пожалуйста, выберите дисциплину.');
+                toast.warn('Пожалуйста, выберите дисциплину.');
                 return;
             }
             if (!formData.topic.trim()) {
-                alert('Пожалуйста, введите тему.');
+                toast.warn('Пожалуйста, введите тему.');
                 return;
             }
             if (!formData.location.trim()) {
-                alert('Пожалуйста, введите место проведения.');
+                toast.warn('Пожалуйста, введите место проведения.');
                 return;
             }
             if (!date || !startTime || !endTime) {
-                alert('Пожалуйста, заполните дату и время проведения.');
+                toast.warn('Пожалуйста, заполните дату и время проведения.');
                 return;
             }
 
-            // Объединяем дату и время
             const startDateTime = `${date}T${startTime}:00`;
             const endDateTime = `${date}T${endTime}:00`;
-            const teacherId = formData.teacher_id || localStorage.getItem('user_id');
 
-            // Prepare data for update
             const updateData = {
-                teacher: teacherId,
+                teacher: formData.teacher_id || localStorage.getItem('user_id'),
                 institute: selectedInstitute,
                 subject: formData.discipline,
                 topic: formData.topic,
@@ -161,14 +141,14 @@ const TeacherLessonEditMain = () => {
             };
 
             await axiosInstance.put(`/api/lessons/${unique_code}/`, updateData);
-            alert('Данные урока обновлены.');
+            toast.success('Данные урока обновлены.');
         } catch (error) {
             if (error.response && error.response.data) {
                 console.error('Ошибка валидации:', error.response.data);
-                alert(`Ошибка при обновлении урока: ${JSON.stringify(error.response.data)}`);
+                toast.error(`Ошибка: ${JSON.stringify(error.response.data)}`);
             } else {
                 console.error('Ошибка при отправке формы:', error);
-                alert('Ошибка при обновлении урока.');
+                toast.error('Ошибка при обновлении урока.');
             }
         }
     };
@@ -179,16 +159,17 @@ const TeacherLessonEditMain = () => {
 
         try {
             await axiosInstance.delete(`/api/lessons/${unique_code}/delete/`);
-            alert('Урок удалён.');
-            navigate('/teacher-lessons'); // Redirect to the lessons list
+            toast.success('Урок удалён.');
+            navigate('/teacher-lessons');
         } catch (error) {
             console.error('Ошибка при удалении урока:', error);
-            alert('Ошибка при удалении урока.');
+            toast.error('Ошибка при удалении урока.');
         }
     };
 
     return (
         <main className="teacher-lesson-create__main">
+            <ToastContainer />
             <h1 className="teacher-lesson-create__title">Информация о паре</h1>
 
             <div className="teacher-lesson-create__container">
@@ -214,7 +195,7 @@ const TeacherLessonEditMain = () => {
                             id="institute"
                             name="institute"
                             value={selectedInstitute}
-                            onChange={handleInstituteChange}
+                            onChange={(e) => setSelectedInstitute(e.target.value)}
                         >
                             <option value="">Выберите институт</option>
                             {institutes.map((institute) => (
@@ -281,7 +262,6 @@ const TeacherLessonEditMain = () => {
                         />
                     </div>
 
-                    {/* Поле выбора даты */}
                     <div className="teacher-lesson-create__form-group">
                         <label htmlFor="date">Дата проведения</label>
                         <input
@@ -351,7 +331,7 @@ const TeacherLessonEditMain = () => {
                                 type="button"
                                 className="teacher-lesson-create__qr-action-button"
                                 onClick={() => {
-                                    handleIncreaseTime(); // Выполняем вашу функцию
+                                    handleIncreaseTime(); // Выполняем функцию увеличения времени
                                     window.location.reload(); // Обновляем страницу
                                 }}
                             >
@@ -377,6 +357,7 @@ const TeacherLessonEditMain = () => {
                     </div>
                 </form>
             </div>
+            <ToastContainer />
         </main>
     );
 };

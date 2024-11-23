@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
+import { toast, ToastContainer } from 'react-toastify'; // Импорт Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Стили для Toastify
 import '../../styles/TeacherSettings/teacherSettingsMain.css';
 import { ChevronLeft, Eye, EyeOff, Upload } from 'lucide-react';
 import UserInfoSettings from '../UserInfoSettings';
@@ -10,6 +13,7 @@ const TeacherSettingsMain = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [userData, setUserData] = useState({});
+    const navigate = useNavigate(); // Для навигации
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
@@ -24,6 +28,7 @@ const TeacherSettingsMain = () => {
             })
             .catch((error) => {
                 console.error('Ошибка при получении данных пользователя:', error);
+                toast.error('Ошибка при загрузке данных пользователя');
             });
     }, []);
 
@@ -35,7 +40,7 @@ const TeacherSettingsMain = () => {
             // Проверяем, нужно ли обновлять логин
             if (username !== userData.username) {
                 await axiosInstance.put('api/accounts/update-profile/', { username });
-                alert('Логин успешно обновлен');
+                toast.success('Логин успешно обновлен');
                 setUserData((prevData) => ({
                     ...prevData,
                     username: username,
@@ -48,9 +53,9 @@ const TeacherSettingsMain = () => {
                     old_password: oldPassword,
                     new_password: newPassword,
                 });
-                alert('Пароль успешно изменен');
+                toast.success('Пароль успешно изменен');
             } else if (newPassword || oldPassword) {
-                alert('Пожалуйста, заполните оба поля для смены пароля.');
+                toast.warning('Пожалуйста, заполните оба поля для смены пароля.');
             }
 
             // Сбрасываем поля формы после успешного обновления
@@ -59,9 +64,14 @@ const TeacherSettingsMain = () => {
         } catch (error) {
             console.error('Ошибка при обновлении данных:', error);
             if (error.response && error.response.data) {
-                alert(JSON.stringify(error.response.data));
+                toast.error(`Ошибка: ${JSON.stringify(error.response.data)}`);
             }
         }
+    };
+
+    // Обработчик для кнопки "Назад"
+    const handleBackClick = () => {
+        navigate('/teacher-lessons'); // Переход на маршрут
     };
 
     return (
@@ -69,7 +79,10 @@ const TeacherSettingsMain = () => {
             <h1 className="teacher-settings__title">Настройки преподавателя</h1>
 
             <div className="teacher-settings__container">
-                <button className="teacher-settings__back-button">
+                <button
+                    className="teacher-settings__back-button"
+                    onClick={handleBackClick} // Обработчик кнопки
+                >
                     <ChevronLeft size={24} />
                 </button>
 
@@ -141,6 +154,7 @@ const TeacherSettingsMain = () => {
                     </form>
                 </section>
             </div>
+            <ToastContainer />
         </main>
     );
 };

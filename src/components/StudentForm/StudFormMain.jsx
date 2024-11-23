@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Добавлен useNavigate
 import ShortReviewList from "./ShortReviewList";
 import "../../styles/StudentForm/studFormMain.css";
-import axiosInstance from '../../utils/axiosInstance'; // Import axiosInstance
+import axiosInstance from "../../utils/axiosInstance"; // Импорт axiosInstance
 
 const StudFormMain = () => {
-  const { unique_code } = useParams(); // Extract unique_code from URL
+  const { unique_code } = useParams(); // Извлекаем unique_code из URL
+  const navigate = useNavigate(); // Для навигации после отправки формы
   const [lessonData, setLessonData] = useState(null);
   const [studentName, setStudentName] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
   const [selectedPraise, setSelectedPraise] = useState([]);
 
-  // Fetch lesson details when the component mounts
+  // Получение данных урока при монтировании компонента
   useEffect(() => {
     const fetchLessonData = async () => {
       try {
         const response = await axiosInstance.get(`/api/lessons/code/${unique_code}/`);
-        console.log(response.data); // Log the data for debugging
         setLessonData(response.data);
       } catch (error) {
         if (error.response) {
-          // Server responded with a status other than 2xx
           const errorData = error.response.data;
           alert(errorData.error || "Урок не найден или ссылка недействительна.");
         } else {
-          // Network or other error
           console.error("Ошибка при загрузке данных урока:", error);
           alert("Ошибка при загрузке данных урока.");
         }
@@ -35,7 +33,7 @@ const StudFormMain = () => {
     fetchLessonData();
   }, [unique_code]);
 
-  // Handle form submission
+  // Обработка отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (rating === 0) {
@@ -50,30 +48,21 @@ const StudFormMain = () => {
     };
 
     try {
-      const response = await axiosInstance.post(
-        `/api/lessons/code/${unique_code}/feedback/`,
-        formData
-      );
-      alert("Форма успешно отправлена!");
-      // Optionally reset form fields
-      setStudentName("");
-      setComment("");
-      setRating(0);
-      setSelectedPraise([]);
+      await axiosInstance.post(`/api/lessons/code/${unique_code}/feedback/`, formData);
+      // Переадресация на страницу завершения формы
+      navigate("/form-completed");
     } catch (error) {
       if (error.response) {
-        // Server responded with a status other than 2xx
         const errorData = error.response.data;
         alert(`Ошибка при отправке формы: ${JSON.stringify(errorData)}`);
       } else {
-        // Network or other error
         console.error("Ошибка при отправке данных:", error);
         alert("Ошибка при отправке данных.");
       }
     }
   };
 
-  // Handle praise selection
+  // Обработка выбора похвалы
   const handlePraiseSelection = (praise) => {
     setSelectedPraise((prev) =>
       prev.includes(praise) ? prev.filter((p) => p !== praise) : [...prev, praise]

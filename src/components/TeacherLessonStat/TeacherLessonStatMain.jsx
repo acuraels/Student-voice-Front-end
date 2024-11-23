@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
 import '../../styles/TeacherLessonStat/teacherLessonStatMain.css';
 import { ChevronLeft, ChevronDown } from 'lucide-react';
 
 const TeacherLessonStatMain = () => {
     const [showAllReviews, setShowAllReviews] = useState(false);
+    const navigate = useNavigate(); // Функция для навигации
 
     const reviews = [
         { rating: 5, comment: "Отличная лекция!", timestamp: "26.09.2024 - 19:15" },
@@ -26,13 +28,20 @@ const TeacherLessonStatMain = () => {
         ));
     };
 
+    const handleBackClick = () => {
+        navigate('/teacher-lessons'); // Переход на страницу /teacher-lessons
+    };
+
     return (
         <main className="teacher-lesson-stat__main">
             <h1 className="teacher-lesson-stat__title">Статистика пары</h1>
 
             <div className="teacher-lesson-stat__container">
                 <div className="teacher-lesson-stat__header">
-                    <button className="teacher-lesson-stat__back-button">
+                    <button
+                        className="teacher-lesson-stat__back-button"
+                        onClick={handleBackClick} // Обработчик нажатия кнопки
+                    >
                         <ChevronLeft size={24} />
                     </button>
                 </div>

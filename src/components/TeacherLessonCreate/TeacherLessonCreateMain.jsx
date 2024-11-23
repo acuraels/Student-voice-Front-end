@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import '../../styles/TeacherLessonCreate/teacherLessonCreateMain.css';
 import { ChevronLeft, Copy, Download, Trash2 } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify'; // Импорт react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Стили для уведомлений
 
 const TeacherLessonCreateMain = () => {
     const [qrCode, setQrCode] = useState(null);
@@ -18,6 +21,8 @@ const TeacherLessonCreateMain = () => {
         endTime: '',
         discipline: '',
     });
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,6 +42,7 @@ const TeacherLessonCreateMain = () => {
                 setSubjects(subjectsResponse.data);
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
+                toast.error('Не удалось загрузить данные.'); // Сообщение об ошибке
             }
         };
 
@@ -55,84 +61,36 @@ const TeacherLessonCreateMain = () => {
         }));
     };
 
-    const generateQR = (qrCodeBase64) => {
-        setQrCode(qrCodeBase64);
-    };
-
-    // Функции валидации
-    const validateTime = () => {
-        const { date, startTime, endTime } = formData;
-        if (!date || !startTime || !endTime) {
-            return false;
-        }
-        const startDateTime = new Date(`${date}T${startTime}:00`);
-        const endDateTime = new Date(`${date}T${endTime}:00`);
-        return endDateTime > startDateTime;
-    };
-
-    const validateYear = () => {
-        const { date } = formData;
-        if (!date) return false;
-        const selectedYear = new Date(date).getFullYear();
-        const currentYear = new Date().getFullYear();
-        return selectedYear <= currentYear;
-    };
-
-    const validateTopicLength = () => {
-        const { topic } = formData;
-        return topic.trim().length <= 250;
-    };
-
-    const validateForm = () => {
-        if (!validateTime()) {
-            alert('Время окончания должно быть больше времени начала.');
-            return false;
-        }
-        if (!validateYear()) {
-            alert('Год не может быть больше текущего.');
-            return false;
-        }
-        if (!validateTopicLength()) {
-            alert('Максимальная длина темы — 250 символов.');
-            return false;
-        }
-        return true;
+    const handleBackClick = () => {
+        navigate('/teacher-lessons');
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Проверяем, что все необходимые поля заполнены
         if (!selectedInstitute) {
-            alert('Пожалуйста, выберите институт.');
+            toast.warn('Пожалуйста, выберите институт.');
             return;
         }
         if (!formData.discipline) {
-            alert('Пожалуйста, выберите дисциплину.');
+            toast.warn('Пожалуйста, выберите дисциплину.');
             return;
         }
         if (!formData.topic.trim()) {
-            alert('Пожалуйста, введите тему.');
+            toast.warn('Пожалуйста, введите тему.');
             return;
         }
         if (!formData.location.trim()) {
-            alert('Пожалуйста, введите место проведения.');
+            toast.warn('Пожалуйста, введите место проведения.');
             return;
         }
         if (!formData.date || !formData.startTime || !formData.endTime) {
-            alert('Пожалуйста, заполните дату и время проведения.');
-            return;
-        }
-
-        // Проверяем валидацию
-        if (!validateForm()) {
+            toast.warn('Пожалуйста, заполните дату и время проведения.');
             return;
         }
 
         try {
             const { date, startTime, endTime } = formData;
-
-            // Объединяем дату и время
             const startDateTime = `${date}T${startTime}:00`;
             const endDateTime = `${date}T${endTime}:00`;
             const teacherId = localStorage.getItem('user_id');
@@ -146,33 +104,37 @@ const TeacherLessonCreateMain = () => {
                 start_time: startDateTime,
                 end_time: endDateTime,
             });
-            alert('Урок успешно сохранён.');
 
-            // Получаем QR-код из ответа
+            toast.success('Урок успешно сохранён.');
+
             const qrCodeBase64 = response.data.qr_code;
             if (qrCodeBase64) {
-                generateQR(qrCodeBase64);
+                setQrCode(qrCodeBase64);
             } else {
-                alert('Не удалось получить QR-код.');
+                toast.error('Не удалось получить QR-код.');
             }
         } catch (error) {
             if (error.response && error.response.data) {
                 console.error('Ошибка валидации:', error.response.data);
-                alert(`Ошибка при сохранении урока: ${JSON.stringify(error.response.data)}`);
+                toast.error(`Ошибка при сохранении урока: ${JSON.stringify(error.response.data)}`);
             } else {
                 console.error('Ошибка при отправке формы:', error);
-                alert('Ошибка при сохранении урока.');
+                toast.error('Ошибка при сохранении урока.');
             }
         }
     };
 
     return (
         <main className="teacher-lesson-create__main">
+            <ToastContainer /> {/* Контейнер для уведомлений */}
             <h1 className="teacher-lesson-create__title">Информация о паре</h1>
 
             <div className="teacher-lesson-create__container">
                 <div className="teacher-lesson-create__header">
-                    <button className="teacher-lesson-create__back-button">
+                    <button
+                        className="teacher-lesson-create__back-button"
+                        onClick={handleBackClick}
+                    >
                         <ChevronLeft size={24} />
                     </button>
                     <button className="teacher-lesson-create__copy-button">
@@ -254,7 +216,6 @@ const TeacherLessonCreateMain = () => {
                         />
                     </div>
 
-                    {/* Поле выбора даты */}
                     <div className="teacher-lesson-create__form-group">
                         <label htmlFor="date">Дата проведения</label>
                         <input
@@ -298,19 +259,9 @@ const TeacherLessonCreateMain = () => {
                         </button>
                     </div>
                 </form>
-
-                {/* Отображение QR-кода после успешного создания урока 
-                {qrCode && (
-                    <div className="teacher-lesson-create__qr-code">
-                        <h2>QR-код для обратной связи</h2>
-                        <img src={`data:image/png;base64,${qrCode}`} alt="QR Code" />
-                    </div>
-                )}
-                */}
             </div>
         </main>
     );
 };
 
 export default TeacherLessonCreateMain;
-

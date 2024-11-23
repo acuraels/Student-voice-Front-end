@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
+import { toast, ToastContainer } from 'react-toastify'; // Импорт Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Стили для Toastify
 import '../../styles/adminSettings/adminSettingsMain.css';
 import { ChevronLeft, Eye, EyeOff, Upload } from 'lucide-react';
 import axiosInstance from '../../utils/axiosInstance';
@@ -13,9 +16,10 @@ const AdminSettingsMain = () => {
         averageRating: true,
         ratings: true,
         topReviews: true,
-        comments: false
+        comments: false,
     });
     const [userData, setUserData] = useState({});
+    const navigate = useNavigate(); // Для маршрутизации
 
     useEffect(() => {
         // Получаем текущие данные пользователя
@@ -26,6 +30,7 @@ const AdminSettingsMain = () => {
             })
             .catch((error) => {
                 console.error('Ошибка при получении данных пользователя:', error);
+                toast.error('Ошибка при загрузке данных пользователя');
             });
     }, []);
 
@@ -34,65 +39,68 @@ const AdminSettingsMain = () => {
     };
 
     const handleSettingChange = (setting) => {
-        setSettings(prevSettings => ({
+        setSettings((prevSettings) => ({
             ...prevSettings,
-            [setting]: !prevSettings[setting]
+            [setting]: !prevSettings[setting],
         }));
     };
 
     const handleApplyChanges = () => {
+        toast.success('Настройки успешно применены.');
         console.log('Применение настроек:', settings);
         // Реализуйте сохранение настроек на бэкенде здесь
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Обновление логина, если он изменился
-        if (username !== userData.username) {
-            axiosInstance.put('api/accounts/update-profile/', { username })
-                .then((response) => {
-                    alert('Логин успешно обновлен');
-                    setUserData((prevData) => ({
-                        ...prevData,
-                        username: username,
-                    }));
-                })
-                .catch((error) => {
-                    console.error('Ошибка при обновлении логина:', error);
-                    if (error.response && error.response.data) {
-                        alert(JSON.stringify(error.response.data));
-                    }
-                });
-        }
+        try {
+            // Обновление логина, если он изменился
+            if (username !== userData.username) {
+                await axiosInstance.put('api/accounts/update-profile/', { username });
+                toast.success('Логин успешно обновлен');
+                setUserData((prevData) => ({
+                    ...prevData,
+                    username: username,
+                }));
+            }
 
-        // Обновление пароля, если указаны старый и новый пароли
-        if (newPassword && oldPassword) {
-            axiosInstance.post('api/accounts/change-password/', {
-                old_password: oldPassword,
-                new_password: newPassword
-            })
-                .then((response) => {
-                    alert('Пароль успешно изменен');
-                    // При необходимости обновите токены или перенаправьте пользователя
-                })
-                .catch((error) => {
-                    console.error('Ошибка при смене пароля:', error);
-                    if (error.response && error.response.data) {
-                        alert(JSON.stringify(error.response.data));
-                    }
+            // Обновление пароля, если указаны старый и новый пароли
+            if (newPassword && oldPassword) {
+                await axiosInstance.post('api/accounts/change-password/', {
+                    old_password: oldPassword,
+                    new_password: newPassword,
                 });
-        } else if (newPassword || oldPassword) {
-            alert('Пожалуйста, заполните оба поля для смены пароля.');
+                toast.success('Пароль успешно изменен');
+            } else if (newPassword || oldPassword) {
+                toast.warning('Пожалуйста, заполните оба поля для смены пароля.');
+            }
+
+            // Сбрасываем поля формы после успешного обновления
+            setOldPassword('');
+            setNewPassword('');
+        } catch (error) {
+            console.error('Ошибка при обновлении данных:', error);
+            if (error.response && error.response.data) {
+                toast.error(`Ошибка: ${JSON.stringify(error.response.data)}`);
+            }
         }
+    };
+
+    const handleBackClick = () => {
+        navigate('/admin-users'); // Переход на маршрут /admin-users
     };
 
     return (
         <main className="admin-settings__main">
+            <ToastContainer />
             <h1 className="admin-settings__title">Настройки администратора</h1>
 
             <div className="admin-settings__container">
-                <button className="admin-settings__back-button">
+                <button
+                    className="admin-settings__back-button"
+                    onClick={handleBackClick} // Обработчик клика для кнопки "Назад"
+                >
                     <ChevronLeft size={24} />
                 </button>
 
@@ -127,7 +135,7 @@ const AdminSettingsMain = () => {
                                 <label htmlFor="old_password" className="admin-settings__label">Старый пароль</label>
                                 <div className="admin-settings__password-input">
                                     <input
-                                        type={showPassword ? "text" : "password"}
+                                        type={showPassword ? 'text' : 'password'}
                                         id="old_password"
                                         placeholder="Старый пароль"
                                         className="admin-settings__input"
@@ -147,7 +155,7 @@ const AdminSettingsMain = () => {
                                 <label htmlFor="new_password" className="admin-settings__label">Новый пароль</label>
                                 <div className="admin-settings__password-input">
                                     <input
-                                        type={showPassword ? "text" : "password"}
+                                        type={showPassword ? 'text' : 'password'}
                                         id="new_password"
                                         placeholder="Новый пароль"
                                         className="admin-settings__input"

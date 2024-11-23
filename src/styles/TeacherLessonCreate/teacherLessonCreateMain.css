@@ -46,6 +46,11 @@
     border: none;
     cursor: pointer;
     transition: transform 0.3s ease;
+    margin-bottom: 30px;
+}
+
+.teacher-lesson-create__copy-button {
+    display: none;
 }
 
 .teacher-lesson-create__back-button:hover,
@@ -260,6 +265,10 @@
     .teacher-lesson-create__time-group {
         flex-direction: column;
         gap: 10px;
+    }
+
+    .teacher-lesson-create__back-button {
+        margin-bottom: 0px;
     }
 }
 

@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
 import '../../styles/AdminUserEdit/adminUserEditMain.css';
 import { ChevronLeft, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
 
 const AdminUserEditMain = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate(); // Для маршрутизации
+
+    const handleBackClick = () => {
+        navigate('/admin-users'); // Переход на маршрут /admin-users
+    };
 
     return (
         <main className="admin-user-edit__main">
             <h1 className="admin-user-edit__title">Информация о пользователе</h1>
 
             <div className="admin-user-edit__container">
-                <button className="admin-uesr-edit__back-button">
+                <button
+                    className="admin-uesr-edit__back-button"
+                    onClick={handleBackClick} // Обработчик клика для кнопки "Назад"
+                >
                     <ChevronLeft size={24} />
                 </button>
 

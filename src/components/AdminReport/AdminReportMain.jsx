@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/AdminReport/adminReportMain.css';
-import { ChevronDown, X, Calendar, Search, Download } from 'lucide-react';
+import { ChevronDown, X, Search, Download, ChevronLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
 
 const AdminReportMain = () => {
     const [institutes, setInstitutes] = useState('');
@@ -8,6 +9,8 @@ const AdminReportMain = () => {
     const [teacherName, setTeacherName] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+
+    const navigate = useNavigate(); // Для маршрутизации
 
     const clearFilter = (setter) => {
         setter('');
@@ -24,11 +27,23 @@ const AdminReportMain = () => {
         ));
     };
 
+    const handleBackClick = () => {
+        navigate('/admin-users'); // Переход на маршрут /admin-users
+    };
+
     return (
         <main className="admin-report__main">
             <h1 className="admin-report__title">Отчёт</h1>
 
             <div className="admin-report__container">
+                {/* Кнопка назад */}
+                <button
+                    className="admin-report__back-button"
+                    onClick={handleBackClick} // Привязка обработчика
+                >
+                    <ChevronLeft size={24} />
+                </button>
+
                 <div className="admin-report__filters">
                     <div className="admin-report__filter-group">
                         <div className="admin-report__filter">
@@ -46,9 +61,6 @@ const AdminReportMain = () => {
                                 <option value="1">Институт 1</option>
                                 <option value="2">Институт 2</option>
                             </select>
-                            <button className="admin-report__clear-filter">
-                                <X size={18} />
-                            </button>
                             <ChevronDown className="admin-report__select-icon" />
                         </div>
                         <div className="admin-report__filter">
@@ -66,9 +78,6 @@ const AdminReportMain = () => {
                                 <option value="1">Дисциплина 1</option>
                                 <option value="2">Дисциплина 2</option>
                             </select>
-                            <button className="admin-report__clear-filter">
-                                <X size={18} />
-                            </button>
                             <ChevronDown className="admin-report__select-icon" />
                         </div>
                         <div className="admin-report__filter">
@@ -86,9 +95,6 @@ const AdminReportMain = () => {
                                 <option value="1">Преподаватель 1</option>
                                 <option value="2">Преподаватель 2</option>
                             </select>
-                            <button className="admin-report__clear-filter">
-                                <X size={18} />
-                            </button>
                             <ChevronDown className="admin-report__select-icon" />
                         </div>
                     </div>

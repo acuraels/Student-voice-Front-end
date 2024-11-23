@@ -1,9 +1,10 @@
 // src/components/TeacherDisciplineCreateMain.jsx
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/TeacherDisciplineCreate/teacherDisciplineCreateMain.css';
 import { ChevronLeft, Trash2, ChevronDown } from 'lucide-react';
-import axiosInstance from '../../utils/axiosInstance'; // Предполагается, что axiosInstance настроен с необходимыми заголовками
+import axiosInstance from '../../utils/axiosInstance';
 import { toast, ToastContainer } from 'react-toastify'; // Для уведомлений
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -13,6 +14,7 @@ const TeacherDisciplineCreateMain = () => {
     const [disciplines, setDisciplines] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
     const [userId, setUserId] = useState(null); // Состояние для хранения user_id
+    const navigate = useNavigate(); // Для навигации
 
     // Получение user_id из localStorage при монтировании компонента
     useEffect(() => {
@@ -91,11 +93,19 @@ const TeacherDisciplineCreateMain = () => {
         handleAddDiscipline();
     };
 
+    // Обработчик для кнопки "Назад"
+    const handleBackClick = () => {
+        navigate('/teacher-disciplines');
+    };
+
     return (
         <main className="teacher-discipline-create__main">
             <ToastContainer />
             <div className="teacher-discipline-create__main-container">
-                <button className="teacher-discipline-create__back-btn">
+                <button
+                    className="teacher-discipline-create__back-btn"
+                    onClick={handleBackClick} // Обработчик нажатия кнопки
+                >
                     <ChevronLeft size={24} />
                 </button>
                 <div className="teacher-discipline-create__content">
