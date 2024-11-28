@@ -2,22 +2,20 @@ import React from "react";
 import ShortReview from "./ShortReview";
 
 const ShortReviewList = ({ grade, onPraiseSelection, selectedPraise }) => {
-  if (grade === 0) {
-    return null;
-  }
+  if (grade === 0) return null;
 
   const positiveReviews = [
-    "Подача материала",
-    "Презентация",
-    "Ответы на вопросы",
-    "Интересные задания",
+    { text: "Подача материала", imgSrc: "/record_voice_over.svg" },
+    { text: "Презентация", imgSrc: "/airplay.svg" },
+    { text: "Ответы на вопросы", imgSrc: "/question_answer.svg" },
+    { text: "Интересные задания", imgSrc: "/assignment.svg" },
   ];
 
   const negativeReviews = [
-    "Подача материала",
-    "Презентация",
-    "Ответы на вопросы",
-    "Интересные задания",
+    { text: "Подача материала", imgSrc: "/record_voice_over.svg" },
+    { text: "Презентация", imgSrc: "/airplay.svg" },
+    { text: "Ответы на вопросы", imgSrc: "/question_answer.svg" },
+    { text: "Неинтересные задания", imgSrc: "/assignment.svg" },
   ];
 
   const reviews = grade > 3 ? positiveReviews : negativeReviews;
@@ -30,10 +28,11 @@ const ShortReviewList = ({ grade, onPraiseSelection, selectedPraise }) => {
         {reviews.map((review, index) => (
           <ShortReview
             key={index}
-            text={review}
+            text={review.text} // Текст отправляется на бэкенд
+            imgSrc={review.imgSrc} // Картинка только для отображения
             isPositive={grade > 3}
             onSelect={onPraiseSelection}
-            isSelected={selectedPraise.includes(review)}
+            isSelected={selectedPraise.includes(review.text)}
           />
         ))}
       </div>

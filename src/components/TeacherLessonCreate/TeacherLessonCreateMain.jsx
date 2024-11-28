@@ -95,6 +95,16 @@ const TeacherLessonCreateMain = () => {
             const endDateTime = `${date}T${endTime}:00`;
             const teacherId = localStorage.getItem('user_id');
 
+            const data = {
+                teacher: teacherId,
+                institute: selectedInstitute,
+                subject: formData.discipline,
+                topic: formData.topic,
+                location: formData.location,
+                start_time: startDateTime,
+                end_time: endDateTime,
+            };
+            console.log(data);
             const response = await axiosInstance.post('/api/lessons/', {
                 teacher: teacherId,
                 institute: selectedInstitute,

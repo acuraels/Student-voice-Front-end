@@ -79,7 +79,7 @@ const TeacherDisciplinesMain = () => {
                                 <div className="teacher-disciplines__discipline-actions">
                                     <span className="teacher-disciplines__discipline-rating">
                                         <img src="/Star.svg" alt="Рейтинг" />
-                                        {discipline.average_rating || '—'}
+                                        {discipline.rating || '—'}
                                     </span>
                                     <a href="#" className="teacher-disciplines__discipline-stats">
                                         <img src="/Stat.svg" alt="Статистика" />

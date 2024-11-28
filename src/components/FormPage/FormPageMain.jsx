@@ -60,7 +60,7 @@ const FormPageMain = () => {
                         <div className="main__form-container">
                             <form className="form" onSubmit={handleSubmit}>
                                 <div className="form__group">
-                                    <label htmlFor="login" className="form__label">Логин</label>
+                                    <label htmlFor="username" className="form__label">Логин</label>
                                     <input
                                         id="username"
                                         name="username"

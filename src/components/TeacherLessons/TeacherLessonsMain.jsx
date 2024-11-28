@@ -110,7 +110,7 @@ const TeacherLessonsMain = () => {
                                 </div>
                                 <div className="teacher-lessons__lesson-actions">
                                     <span className="teacher-lessons__lesson-rating">
-                                        <Star size={16} />
+                                        <img src="/Star.svg" alt="Рейтинг" />
                                         {lesson.average_rating ? lesson.average_rating.toFixed(1) : 'N/A'}
                                     </span>
                                     <Link to={`/teacher-lesson-stat/${lesson.unique_code}`} className="teacher-lessons__lesson-stats">
@@ -123,7 +123,13 @@ const TeacherLessonsMain = () => {
                             </li>
                         ))
                     ) : (
-                        <li>No lessons found.</li>
+                        <li style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            textAlign: 'center',
+                        }}>Пары не найдены.</li>
                     )}
                 </ul>
 

@@ -1,21 +1,36 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/TeacherLessonStat/teacherLessonStatMain.css';
 import { ChevronLeft, ChevronDown } from 'lucide-react';
+import axiosInstance from '../../utils/axiosInstance'; // Импортируем axiosInstance
 
 const TeacherLessonStatMain = () => {
+    const [lessonData, setLessonData] = useState(null);
+    const [reviews, setReviews] = useState([]);
     const [showAllReviews, setShowAllReviews] = useState(false);
-    const navigate = useNavigate(); // Функция для навигации
+    const [isLoading, setIsLoading] = useState(true);
+    const { unique_code } = useParams(); // Получаем параметр из URL
+    const navigate = useNavigate();
 
-    const reviews = [
-        { rating: 5, comment: "Отличная лекция!", timestamp: "26.09.2024 - 19:15" },
-        { rating: 4, comment: "Хорошо, но можно лучше", timestamp: "26.09.2024 - 19:16" },
-        { rating: 5, comment: "", timestamp: "26.09.2024 - 19:17" },
-        { rating: 4, comment: "Интересная тема", timestamp: "26.09.2024 - 19:18" },
-        { rating: 5, comment: "Спасибо за урок!", timestamp: "26.09.2024 - 19:19" },
-    ];
+    useEffect(() => {
+        // Запрос данных урока
+        const fetchLessonData = async () => {
+            try {
+                const response = await axiosInstance.get(`/api/lessons/${unique_code}/lesson-stat/`);
 
-    const displayedReviews = showAllReviews ? reviews : reviews.slice(0, 4);
+                setLessonData(response.data);
+                setReviews(response.data.student_feedback || []); // Если отзывы включены в данные
+            } catch (error) {
+                console.error("Ошибка при загрузке данных:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchLessonData();
+    }, [unique_code]);
+
+    const displayedReviews = reviews;
 
     const renderStars = (rating) => {
         return Array(5).fill(0).map((_, index) => (
@@ -29,8 +44,12 @@ const TeacherLessonStatMain = () => {
     };
 
     const handleBackClick = () => {
-        navigate('/teacher-lessons'); // Переход на страницу /teacher-lessons
+        navigate('/teacher-lessons');
     };
+
+    if (isLoading) return <p>Загрузка...</p>;
+
+    if (!lessonData) return <p>Данные не найдены</p>;
 
     return (
         <main className="teacher-lesson-stat__main">
@@ -40,7 +59,7 @@ const TeacherLessonStatMain = () => {
                 <div className="teacher-lesson-stat__header">
                     <button
                         className="teacher-lesson-stat__back-button"
-                        onClick={handleBackClick} // Обработчик нажатия кнопки
+                        onClick={handleBackClick}
                     >
                         <ChevronLeft size={24} />
                     </button>
@@ -48,26 +67,42 @@ const TeacherLessonStatMain = () => {
 
                 <div className="teacher-lesson-stat__lesson-info">
                     <div className="teacher-lesson-stat__discipline">
-                        <h2>Дисциплина</h2>
-                        <p>Место проведения</p>
+                        <h2>{lessonData.subject}</h2>
+                        <p>{lessonData.location}</p>
                     </div>
-                    <div className="teacher-lesson-stat__time">26.09.2024 - 19:15</div>
+                    <div className="teacher-lesson-stat__time">
+                        {lessonData.start_time} - {lessonData.end_time}
+                    </div>
                     <div className="teacher-lesson-stat__rating">
-                        {renderStars(4.9)}
-                        <span>4.9</span>
+                        {/* Отображение рейтинга с округлением */}
+                        <img src="/Star.svg" alt="Рейтинг" />
+                        <span
+                            style={{
+                                fontSize: '20px',
+                                fontWeight: 'bold',
+                            }}
+                        >{lessonData.average_rating.toFixed(1)}</span>
                     </div>
                 </div>
 
-                <p className="teacher-lesson-stat__feedback-count">Оставили отзыв: 29 студентов</p>
+                <p className="teacher-lesson-stat__feedback-count">
+
+                    Оставили отзыв: {lessonData.student_feedback_count} студентов
+                </p>
 
                 <div className="teacher-lesson-stat__reviews">
                     {displayedReviews.map((review, index) => (
                         <div key={index} className="teacher-lesson-stat__review">
                             <div className="teacher-lesson-stat__review-rating">
-                                {renderStars(review.rating)}
+                                <img src="/Star.svg" alt="Рейтинг" />
+                                {review.rating}
                             </div>
-                            <p className="teacher-lesson-stat__review-comment">{review.comment || "Без комментария"}</p>
-                            <p className="teacher-lesson-stat__review-timestamp">{review.timestamp}</p>
+                            <p className="teacher-lesson-stat__review-comment">
+                                {review.comment || "Без комментария"}
+                            </p>
+                            <p className="teacher-lesson-stat__review-timestamp">
+                                {review.created_at}
+                            </p>
                         </div>
                     ))}
                 </div>
@@ -87,3 +122,4 @@ const TeacherLessonStatMain = () => {
 };
 
 export default TeacherLessonStatMain;
+

@@ -117,6 +117,21 @@
     transition: transform 0.4s;
 }
 
+.stud-form__praise-button.selected {
+    border: 2px solid #008000;
+    /* Зеленая подсветка для выбранных положительных */
+    background-color: rgba(0, 128, 0, 0.1);
+    /* Легкий зеленый фон */
+}
+
+.stud-form__praise-button.selected.negative {
+    border: 2px solid #ff0000;
+    /* Красная подсветка для выбранных отрицательных */
+    background-color: rgba(255, 0, 0, 0.1);
+    /* Легкий красный фон */
+}
+
+
 .stud-form__praise-button p {
     max-width: 100%;
 }
@@ -196,6 +211,10 @@
     .stud-form__praise-options {
         flex-direction: row;
     }
+
+    .stud-form__info-desc {
+        text-align: center;
+    }
 }
 
 @media (max-width: 768px) {
@@ -231,6 +250,6 @@
     }
 
     .stud-form__submit-button {
-        padding: 1rem 0rem;
+        padding: 0.8rem 0rem;
     }
 }

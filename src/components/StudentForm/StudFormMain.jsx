@@ -100,7 +100,7 @@ const StudFormMain = () => {
               onChange={(e) => setStudentName(e.target.value)}
               required
               className="stud-form__input"
-              maxLength="200"
+              maxLength="75"
             />
           </div>
 
@@ -136,7 +136,7 @@ const StudFormMain = () => {
               placeholder="Ваш комментарий"
               onChange={(e) => setComment(e.target.value)}
               className="stud-form__textarea"
-              maxLength="500"
+              maxLength="100"
             />
           </div>
 

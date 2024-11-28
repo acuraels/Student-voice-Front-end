@@ -132,8 +132,8 @@
 
 .teacher-lesson-stat__review-rating {
     display: flex;
-    min-width: 100px;
-    gap: 3px;
+    gap: 0.5rem;
+    align-items: center;
 }
 
 .teacher-lesson-stat__review:hover .teacher-lesson-stat__star {

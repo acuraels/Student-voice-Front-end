@@ -25,6 +25,7 @@ const AdminUsersMain = () => {
         e.preventDefault();
         axiosInstance.get(`api/accounts/users/?search=${searchQuery}`)
             .then((response) => {
+
                 setUsers(response.data);
             })
             .catch((error) => {
@@ -38,7 +39,7 @@ const AdminUsersMain = () => {
 
             <div className="admin-users__main-container">
                 <div className="admin-users__search-container">
-                    <Link to="/admin-user-edit" className="admin-users__add-user">
+                    <Link to="/admin-user-create" className="admin-users__add-user">
                         <img src="/User plus.svg" alt="Добавить пользователя" className="admin-users__add-user__img" />
                     </Link>
                     <form className="admin-users__search-form" onSubmit={handleSearch}>

@@ -2,6 +2,7 @@ import FormPage from './pages/FormPage.jsx';
 import StudentForm from './pages/StudentForm.jsx';
 import AdminUsers from './pages/AdminPages/AdminUsers.jsx';
 import AdminUserStat from './pages/AdminPages/AdminUserStat.jsx';
+import AdminUserCreate from './pages/AdminPages/AdminUserCreate.jsx';
 import AdminUserEdit from './pages/AdminPages/AdminUserEdit.jsx';
 import AdminReport from './pages/AdminPages/AdminReport.jsx';
 import AdminSettings from './pages/AdminPages/AdminSettings.jsx';
@@ -35,7 +36,12 @@ function App() {
             <AdminUserStat />
           </ProtectedRoute>
         } />
-        <Route path="/admin-user-edit" element={
+        <Route path="/admin-user-create/:unique_code" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <AdminUserCreate />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin-user-edit/:unique_code" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminUserEdit />
           </ProtectedRoute>
