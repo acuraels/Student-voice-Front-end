@@ -6,7 +6,7 @@ import { ChevronLeft } from 'lucide-react';
 const AdminUserStatMain = () => {
     return (
         <main className="admin-user-stat__main">
-            <h1 className="admin-user-stat__title">Статистика преподавателя</h1>
+            <h1 className="admin-user-stat__title">Статистика пользователя</h1>
 
             <div className="admin-user-stat__container">
                 <div className="admin-user-stat__info-container">

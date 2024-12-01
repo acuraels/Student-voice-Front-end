@@ -31,17 +31,17 @@ function App() {
             <AdminUsers />
           </ProtectedRoute>
         } />
-        <Route path="/admin-user-stat" element={
+        <Route path="/admin-user-stat/:id" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminUserStat />
           </ProtectedRoute>
         } />
-        <Route path="/admin-user-create/:unique_code" element={
+        <Route path="/admin-user-create/" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminUserCreate />
           </ProtectedRoute>
         } />
-        <Route path="/admin-user-edit/:unique_code" element={
+        <Route path="/admin-user-edit/:id" element={
           <ProtectedRoute allowedRoles={['admin']}>
             <AdminUserEdit />
           </ProtectedRoute>
