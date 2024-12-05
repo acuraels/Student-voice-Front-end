@@ -11,7 +11,8 @@ const Unauthorized = () => {
                 justifyContent: 'center',
                 height: '100vh',
                 textAlign: 'center',
-                backgroundColor: '#f8f8f8'
+                background: "url('/background-1080.png')",
+                padding: '20px',
             }}
         >
             <h1>Доступ запрещен</h1>

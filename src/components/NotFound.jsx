@@ -11,6 +11,7 @@ const NotFound = () => {
                 justifyContent: 'center',
                 height: '100vh',
                 textAlign: 'center',
+                background: "url('/background-1080.png')",
             }}
         >
             <h1>ERROR 404</h1>
