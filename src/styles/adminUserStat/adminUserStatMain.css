@@ -66,6 +66,19 @@
     margin-bottom: 20px;
 }
 
+.admin-user-stat__feedback {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-user-stat__feedback-good {
+    color: #228B08;
+}
+
+.admin-user-stat__feedback-bad {
+    color: #FF4D64;
+}
+
 .admin-user-stat__user {
     display: flex;
     align-items: center;
@@ -181,7 +194,7 @@
 
 .admin-user-stat__filters {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
     margin-bottom: 20px;
 }
@@ -247,6 +260,20 @@
 
 .admin-user-stat__list-item:hover .admin-user-stat__lesson-name {
     color: #007bff;
+}
+
+.admin-user-stat__place-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-user-stat__place {
+    font-weight: bold;
+    margin: auto;
+}
+
+.admin-user-stat__place-name {
+    margin: auto;
 }
 
 .admin-user-stat__date-info {

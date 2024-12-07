@@ -9,6 +9,10 @@ const TeacherLessonStatMain = () => {
     const [reviews, setReviews] = useState([]);
     const [showAllReviews, setShowAllReviews] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [teacherFeedback, setTeacherFeedback] = useState({
+        most_frequent_praise: '',
+        most_frequent_criticism: ''
+    });
     const { unique_code } = useParams(); // Получаем параметр из URL
     const navigate = useNavigate();
 
@@ -17,31 +21,33 @@ const TeacherLessonStatMain = () => {
         const fetchLessonData = async () => {
             try {
                 const response = await axiosInstance.get(`/api/lessons/${unique_code}/lesson-stat/`);
-
                 setLessonData(response.data);
-                setReviews(response.data.student_feedback || []); // Если отзывы включены в данные
+                setReviews(response.data.student_feedback || []); // Если отзывы включены в данные урока
             } catch (error) {
-                console.error("Ошибка при загрузке данных:", error);
+                console.error("Ошибка при загрузке данных урока:", error);
             } finally {
                 setIsLoading(false);
             }
         };
 
+        // Запрос данных отзывов преподавателя
+        const fetchTeacherFeedback = async () => {
+            try {
+                const response = await axiosInstance.get(`/api/teachers/${unique_code}/feedback/`);
+                setTeacherFeedback({
+                    most_frequent_praise: response.data.most_frequent_praise,
+                    most_frequent_criticism: response.data.most_frequent_criticism
+                });
+            } catch (error) {
+                console.error("Ошибка при загрузке данных преподавателя:", error);
+            }
+        };
+
         fetchLessonData();
+        fetchTeacherFeedback();
     }, [unique_code]);
 
     const displayedReviews = reviews;
-
-    const renderStars = (rating) => {
-        return Array(5).fill(0).map((_, index) => (
-            <img
-                key={index}
-                src="/Star.svg"
-                alt="Звезда"
-                className={`teacher-lesson-stat__star ${index < rating ? 'teacher-lesson-stat__star--filled' : ''}`}
-            />
-        ));
-    };
 
     const handleBackClick = () => {
         navigate('/teacher-lessons');
@@ -74,7 +80,6 @@ const TeacherLessonStatMain = () => {
                         {lessonData.start_time} - {lessonData.end_time}
                     </div>
                     <div className="teacher-lesson-stat__rating">
-                        {/* Отображение рейтинга с округлением */}
                         <img src="/Star.svg" alt="Рейтинг" />
                         <span
                             style={{
@@ -85,8 +90,16 @@ const TeacherLessonStatMain = () => {
                     </div>
                 </div>
 
-                <p className="teacher-lesson-stat__feedback-count">
+                <div className="admin-user-stat__feedback">
+                    <span className="admin-user-stat__feedback-good">
+                        {teacherFeedback.most_frequent_praise || 'Хороший отзыв'}
+                    </span>
+                    <span className="admin-user-stat__feedback-bad">
+                        {teacherFeedback.most_frequent_criticism || 'Плохой отзыв'}
+                    </span>
+                </div>
 
+                <p className="teacher-lesson-stat__feedback-count">
                     Оставили отзыв: {lessonData.student_feedback_count} студентов
                 </p>
 
@@ -122,4 +135,3 @@ const TeacherLessonStatMain = () => {
 };
 
 export default TeacherLessonStatMain;
-

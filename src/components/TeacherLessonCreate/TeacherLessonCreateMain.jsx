@@ -123,6 +123,14 @@ const TeacherLessonCreateMain = () => {
             } else {
                 toast.error('Не удалось получить QR-код.');
             }
+
+            const uniqueCode = response.data.unique_code;
+            if (uniqueCode) {
+                navigate(`/teacher-lesson-edit/${uniqueCode}`);
+            } else {
+                toast.error('Ошибка: не удалось определить уникальный код.');
+            }
+
         } catch (error) {
             if (error.response && error.response.data) {
                 console.error('Ошибка валидации:', error.response.data);

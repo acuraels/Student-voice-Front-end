@@ -6,11 +6,22 @@ import axiosInstance from '../../utils/axiosInstance';
 const AdminUsersMain = () => {
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [count, setCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const pageSize = 5;
 
-    const fetchUsers = () => {
-        axiosInstance.get('api/accounts/users/')
+    const totalPages = Math.ceil(count / pageSize);
+
+    const fetchUsers = (page = 1, query = '') => {
+        const url = query
+            ? `api/accounts/users/?search=${query}&page=${page}`
+            : `api/accounts/users/?page=${page}`;
+
+        axiosInstance.get(url)
             .then((response) => {
-                setUsers(response.data);
+                setUsers(response.data.results);
+                setCount(response.data.count);
+                setCurrentPage(page);
             })
             .catch((error) => {
                 console.error('Ошибка при получении списка пользователей:', error);
@@ -23,14 +34,11 @@ const AdminUsersMain = () => {
 
     const handleSearch = (e) => {
         e.preventDefault();
-        axiosInstance.get(`api/accounts/users/?search=${searchQuery}`)
-            .then((response) => {
+        fetchUsers(1, searchQuery); // При поиске переходим на первую страницу
+    };
 
-                setUsers(response.data);
-            })
-            .catch((error) => {
-                console.error('Ошибка при поиске пользователей:', error);
-            });
+    const handlePageClick = (page) => {
+        fetchUsers(page, searchQuery);
     };
 
     return (
@@ -94,10 +102,25 @@ const AdminUsersMain = () => {
                         </li>
                     ))}
                 </ul>
-                <button className="admin-users__show-more">Показать еще</button>
+
+                {/* Пагинация */}
+                {totalPages > 1 && (
+                    <div className="admin-users__pagination">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNumber => (
+                            <button
+                                key={pageNumber}
+                                className={`admin-users__pagination-btn ${pageNumber === currentPage ? 'active' : ''}`}
+                                onClick={() => handlePageClick(pageNumber)}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
         </main>
     );
 };
 
 export default AdminUsersMain;
+

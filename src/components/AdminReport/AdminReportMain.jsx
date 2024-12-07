@@ -74,9 +74,9 @@ const AdminReportMain = () => {
                                 onChange={(e) => setDisciplines(e.target.value)}
                                 className="admin-report__select"
                             >
-                                <option value="">Дисциплины</option>
-                                <option value="1">Дисциплина 1</option>
-                                <option value="2">Дисциплина 2</option>
+                                <option value="">ФИО преподавателя</option>
+                                <option value="1">ФИО преподавателя 1</option>
+                                <option value="2">ФИО преподавателя 2</option>
                             </select>
                             <ChevronDown className="admin-report__select-icon" />
                         </div>
@@ -91,9 +91,9 @@ const AdminReportMain = () => {
                                 onChange={(e) => setTeacherName(e.target.value)}
                                 className="admin-report__select"
                             >
-                                <option value="">ФИО преподавателя</option>
-                                <option value="1">Преподаватель 1</option>
-                                <option value="2">Преподаватель 2</option>
+                                <option value="">Предмет</option>
+                                <option value="1">Предмет 1</option>
+                                <option value="2">Предмет 2</option>
                             </select>
                             <ChevronDown className="admin-report__select-icon" />
                         </div>
