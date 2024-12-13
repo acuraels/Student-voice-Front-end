@@ -44,6 +44,61 @@ const AdminReportMain = () => {
                     <ChevronLeft size={24} />
                 </button>
 
+                <div className="admin-report__rates">
+                    <h2 className="admin-report__section-title">Рейтинг</h2>
+                    <div className="admin-report__rating-header">
+                        <div className="admin-report__rating-score">
+                            <img src="/Star.svg" alt="Рейтинг" className="admin-report__rating-star" />
+                            <span className="admin-report__rating-number">4.9</span>
+                        </div>
+                        <span className="admin-report__rating-count">109 оценок</span>
+                    </div>
+
+                    <div className="admin-report__rating-table">
+                        <div className="admin-report__rating-column admin-report__rating-column--high">
+                            <div className="admin-report__rating-column-header">С наивысшей оценкой</div>
+                            <div className="admin-report__rating-item">Белоусова Вериомика Игоревна</div>
+                            <div className="admin-report__rating-item">Анисимова Анастасия Висторовна</div>
+                            <div className="admin-report__rating-item">Белогур Вероника Анатольевна</div>
+                        </div>
+                        <div className="admin-report__rating-column admin-report__rating-column--low">
+                            <div className="admin-report__rating-column-header">С наименьшей оценкой</div>
+                            <div className="admin-report__rating-item">Гладков Антон Адреевич</div>
+                            <div className="admin-report__rating-item">Ильин Александр Витальевич</div>
+                            <div className="admin-report__rating-item">Григоридзе Воуржан Арсенович</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="admin-report__smalls">
+                    <h2 className="admin-report__section-title">Топ коротких отзывов</h2>
+                    <div className="admin-report__reviews-table">
+                        <div className="admin-report__reviews-header">
+                            <div className="admin-report__reviews-cell">Отзывы</div>
+                            <div className="admin-report__reviews-cell">Положительные</div>
+                            <div className="admin-report__reviews-cell">Отрицательные</div>
+                        </div>
+                        <div className="admin-report__reviews-row">
+                            <div className="admin-report__reviews-cell">Интересность заданий</div>
+                            <div className="admin-report__reviews-cell">157 (6%)</div>
+                            <div className="admin-report__reviews-cell">975 (36%)</div>
+                        </div>
+                        <div className="admin-report__reviews-row">
+                            <div className="admin-report__reviews-cell">Подача материала</div>
+                            <div className="admin-report__reviews-cell">340 (14%)</div>
+                            <div className="admin-report__reviews-cell">647 (26%)</div>
+                        </div>
+                        <div className="admin-report__reviews-row">
+                            <div className="admin-report__reviews-cell">Презентация</div>
+                            <div className="admin-report__reviews-cell">398 (17%)</div>
+                            <div className="admin-report__reviews-cell">76 (3%)</div>
+                        </div>
+                    </div>
+                    <button className="admin-report__show-all">Показать все</button>
+                </div>
+
+                <h2 className="admin-report__heading">Выгрузка отчёта по фильтрам</h2>
+
                 <div className="admin-report__filters">
                     <div className="admin-report__filter-group">
                         <div className="admin-report__filter">
@@ -147,8 +202,6 @@ const AdminReportMain = () => {
                         </div>
                     ))}
                 </div>
-
-                <button className="admin-report__show-more">Показать еще</button>
             </div>
         </main>
     );
