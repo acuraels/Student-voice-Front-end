@@ -132,8 +132,6 @@ const TeacherLessonsMain = () => {
                         }}>Пары не найдены.</li>
                     )}
                 </ul>
-
-                <button className="teacher-lessons__show-more">Показать еще</button>
             </div>
         </main>
     );

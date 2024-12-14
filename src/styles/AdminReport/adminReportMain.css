@@ -582,3 +582,134 @@
         font-size: 36px;
     }
 }
+
+.admin-report__info-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 5px;
+}
+
+.admin-report__info-btn:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.admin-report__info-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+/* Styles for admin-report__pagination */
+.admin-report__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.admin-report__pagination-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-report__pagination-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-report__pagination-btn.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.admin-report__pagination-btn.active:hover {
+    background-color: #0056b3;
+}
+
+/* Styles for admin-report__popup-overlay */
+.admin-report__popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.admin-report__popup {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+}
+
+.admin-report__popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.admin-report__popup-close:hover {
+    color: #333;
+}
+
+.admin-report__popup h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+}
+
+.admin-report__popup p {
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.admin-report__popup strong {
+    font-weight: bold;
+    color: #555;
+}
+
+@media (max-width: 480px) {
+    .admin-report__pagination-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    .admin-report__popup {
+        padding: 15px;
+    }
+
+    .admin-report__popup h3 {
+        font-size: 18px;
+    }
+}

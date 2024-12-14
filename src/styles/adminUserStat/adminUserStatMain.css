@@ -219,8 +219,9 @@
 }
 
 .admin-user-stat__list-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
     align-items: center;
     padding: 15px 0;
     border-bottom: 1px solid #f0f0f0;
@@ -235,6 +236,7 @@
 .admin-user-stat__lesson-info {
     display: flex;
     flex-direction: column;
+    min-width: 0;
 }
 
 .admin-user-stat__stars {
@@ -256,6 +258,9 @@
 .admin-user-stat__lesson-name {
     font-weight: bold;
     transition: color 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .admin-user-stat__list-item:hover .admin-user-stat__lesson-name {
@@ -265,19 +270,31 @@
 .admin-user-stat__place-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-width: 0;
 }
 
 .admin-user-stat__place {
     font-weight: bold;
-    margin: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
 }
 
 .admin-user-stat__place-name {
-    margin: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
 }
 
 .admin-user-stat__date-info {
     text-align: right;
+    min-width: 0;
 }
 
 .admin-user-stat__date {
@@ -334,6 +351,45 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.admin-user-stat__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.admin-user-stat__pagination-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-user-stat__pagination-btn:hover {
+    background-color: #e0e0e0;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.admin-user-stat__pagination-btn.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.admin-user-stat__pagination-btn.active:hover {
+    background-color: #0056b3;
+}
+
 /* Медиа-запросы для адаптивности */
 
 @media (max-width: 1024px) {
@@ -372,10 +428,6 @@
     .admin-user-stat__filter-btn {
         flex: 1 1 calc(33.333% - 10px);
         margin-bottom: 10px;
-    }
-
-    .admin-user-stat__lesson-name {
-        width: 70%;
     }
 }
 
@@ -420,6 +472,22 @@
     .admin-user-stat__reviews {
         order: 2;
     }
+
+    .admin-user-stat__list-item {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .admin-user-stat__place-info,
+    .admin-user-stat__date-info {
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .admin-user-stat__place,
+    .admin-user-stat__place-name {
+        text-align: left;
+    }
 }
 
 @media (max-width: 480px) {
@@ -436,5 +504,11 @@
         width: 100%;
         max-width: 200px;
         padding: 0.75rem 1rem;
+    }
+
+    .admin-user-stat__pagination-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
     }
 }

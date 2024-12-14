@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Импорт useNavigate
-import { toast, ToastContainer } from 'react-toastify'; // Импорт Toastify
-import 'react-toastify/dist/ReactToastify.css'; // Стили для Toastify
+import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/adminSettings/adminSettingsMain.css';
 import { ChevronLeft, Eye, EyeOff, Upload } from 'lucide-react';
 import axiosInstance from '../../utils/axiosInstance';
-import UserInfoSettings from '../UserInfoSettings'; // Импортируем компонент
+import UserInfoSettings from '../UserInfoSettings';
 
 const AdminSettingsMain = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -19,19 +19,33 @@ const AdminSettingsMain = () => {
         comments: false,
     });
     const [userData, setUserData] = useState({});
-    const navigate = useNavigate(); // Для маршрутизации
+    const [teachersCanSeeReviews, setTeachersCanSeeReviews] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Получаем текущие данные пользователя
-        axiosInstance.get('api/accounts/user-info/')
-            .then((response) => {
+        const loadUserData = async () => {
+            try {
+                const response = await axiosInstance.get('api/accounts/user-info/');
                 setUsername(response.data.username);
                 setUserData(response.data);
-            })
-            .catch((error) => {
-                console.error('Ошибка при получении данных пользователя:', error);
+            } catch (error) {
+                console.error('Ошибка при загрузке данных пользователя:', error);
                 toast.error('Ошибка при загрузке данных пользователя');
-            });
+            }
+        };
+
+        const loadReviewsVisibility = async () => {
+            try {
+                const resp = await axiosInstance.get('/api/accounts/teachers/reviews-visibility/');
+                setTeachersCanSeeReviews(resp.data.visible_reviews);
+            } catch (err) {
+                console.error('Ошибка при получении состояния отзывов:', err);
+                // Можно оставить по умолчанию true
+            }
+        };
+
+        loadUserData();
+        loadReviewsVisibility();
     }, []);
 
     const togglePasswordVisibility = () => {
@@ -45,17 +59,9 @@ const AdminSettingsMain = () => {
         }));
     };
 
-    const handleApplyChanges = () => {
-        toast.success('Настройки успешно применены.');
-        console.log('Применение настроек:', settings);
-        // Реализуйте сохранение настроек на бэкенде здесь
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
-            // Обновление логина, если он изменился
             if (username !== userData.username) {
                 await axiosInstance.put('api/accounts/update-profile/', { username });
                 toast.success('Логин успешно обновлен');
@@ -65,7 +71,6 @@ const AdminSettingsMain = () => {
                 }));
             }
 
-            // Обновление пароля, если указаны старый и новый пароли
             if (newPassword && oldPassword) {
                 await axiosInstance.post('api/accounts/change-password/', {
                     old_password: oldPassword,
@@ -76,7 +81,6 @@ const AdminSettingsMain = () => {
                 toast.warning('Пожалуйста, заполните оба поля для смены пароля.');
             }
 
-            // Сбрасываем поля формы после успешного обновления
             setOldPassword('');
             setNewPassword('');
         } catch (error) {
@@ -88,7 +92,20 @@ const AdminSettingsMain = () => {
     };
 
     const handleBackClick = () => {
-        navigate('/admin-users'); // Переход на маршрут /admin-users
+        navigate('/admin-users');
+    };
+
+    const handleToggleReviewsForTeachers = async () => {
+        try {
+            const response = await axiosInstance.post('/api/accounts/teachers/toggle-reviews/', {
+                visible_reviews: !teachersCanSeeReviews
+            });
+            setTeachersCanSeeReviews(!teachersCanSeeReviews);
+            toast.success('Видимость отзывов для преподавателей обновлена');
+        } catch (error) {
+            console.error('Ошибка при обновлении видимости отзывов для преподавателей:', error);
+            toast.error('Ошибка при обновлении видимости отзывов');
+        }
     };
 
     return (
@@ -99,7 +116,7 @@ const AdminSettingsMain = () => {
             <div className="admin-settings__container">
                 <button
                     className="admin-settings__back-button"
-                    onClick={handleBackClick} // Обработчик клика для кнопки "Назад"
+                    onClick={handleBackClick}
                 >
                     <ChevronLeft size={24} />
                 </button>
@@ -112,10 +129,8 @@ const AdminSettingsMain = () => {
                         <button className="admin-settings__avatar-upload"><Upload size={24} /></button>
                     </div>
 
-                    {/* Отображение ФИО пользователя */}
                     <UserInfoSettings />
 
-                    {/* Поле для ввода логина */}
                     <label htmlFor="username" className="admin-settings__label">Логин</label>
                     <input
                         type="text"
@@ -176,56 +191,17 @@ const AdminSettingsMain = () => {
                     </form>
                 </section>
 
-                <section className="admin-settings__visibility">
-                    <h2 className="admin-settings__section-title">Преподаватели видят</h2>
-                    <div className="admin-settings__toggle-group">
-                        <label className="admin-settings__toggle">
-                            <span className="admin-settings__toggle-label">Средняя оценка</span>
-                            <input
-                                type="checkbox"
-                                checked={settings.averageRating}
-                                onChange={() => handleSettingChange('averageRating')}
-                                className="admin-settings__toggle-input"
-                            />
-                            <span className="admin-settings__toggle-slider"></span>
-                        </label>
-                        <label className="admin-settings__toggle">
-                            <span className="admin-settings__toggle-label">Оценки</span>
-                            <input
-                                type="checkbox"
-                                checked={settings.ratings}
-                                onChange={() => handleSettingChange('ratings')}
-                                className="admin-settings__toggle-input"
-                            />
-                            <span className="admin-settings__toggle-slider"></span>
-                        </label>
-                        <label className="admin-settings__toggle">
-                            <span className="admin-settings__toggle-label">Топ 3 мини-отзыва</span>
-                            <input
-                                type="checkbox"
-                                checked={settings.topReviews}
-                                onChange={() => handleSettingChange('topReviews')}
-                                className="admin-settings__toggle-input"
-                            />
-                            <span className="admin-settings__toggle-slider"></span>
-                        </label>
-                        <label className="admin-settings__toggle">
-                            <span className="admin-settings__toggle-label">Комментарии</span>
-                            <input
-                                type="checkbox"
-                                checked={settings.comments}
-                                onChange={() => handleSettingChange('comments')}
-                                className="admin-settings__toggle-input"
-                            />
-                            <span className="admin-settings__toggle-slider"></span>
-                        </label>
-                    </div>
-                </section>
-
-                <button className="admin-settings__apply-btn" onClick={handleApplyChanges}>Применить настройки</button>
+                <div className="admin-settings__reviews-toggle-container">
+                    <h2 className="admin-settings__section-title">Видимость отзывов для преподавателей</h2>
+                    <p className="meow">Текущее состояние: {teachersCanSeeReviews ? "Включены" : "Выключены"}</p>
+                    <button className="admin-settings__apply-btn" onClick={handleToggleReviewsForTeachers}>
+                        {teachersCanSeeReviews ? "Выключить отзывы" : "Включить отзывы"}
+                    </button>
+                </div>
             </div>
         </main>
     );
 };
 
 export default AdminSettingsMain;
+

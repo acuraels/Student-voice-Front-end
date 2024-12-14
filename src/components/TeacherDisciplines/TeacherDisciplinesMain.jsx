@@ -92,8 +92,6 @@ const TeacherDisciplinesMain = () => {
                         ))
                     )}
                 </ul>
-
-                <button className="teacher-disciplines__show-more">Показать еще</button>
             </div>
         </main>
     );

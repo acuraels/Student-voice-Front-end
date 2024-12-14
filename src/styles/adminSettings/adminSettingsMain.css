@@ -17,6 +17,11 @@
     }
 }
 
+.meow {
+    display: flex;
+    justify-content: center;
+}
+
 .admin-settings__container {
     max-width: 900px;
     margin: 0 auto;
