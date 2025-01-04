@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
                 }
 
                 // Пытаемся обновить access токен
-                const response = await axios.post('http://192.168.1.122:8000/api/token/refresh/', {
+                const response = await axios.post('http://192.168.1.122:8000/api/accounts/token/refresh/', {
                     refresh: refreshToken,
                 });
 

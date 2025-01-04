@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../utils/axiosInstance';
 import '../../styles/TeacherLessonCreate/teacherLessonCreateMain.css';
-import { ChevronLeft, Copy, Download, Trash2 } from 'lucide-react';
-import { toast, ToastContainer } from 'react-toastify'; // Импорт react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Стили для уведомлений
+import { ChevronLeft, Copy } from 'lucide-react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TeacherLessonCreateMain = () => {
     const [qrCode, setQrCode] = useState(null);
@@ -42,7 +42,7 @@ const TeacherLessonCreateMain = () => {
                 setSubjects(subjectsResponse.data);
             } catch (error) {
                 console.error('Ошибка при загрузке данных:', error);
-                toast.error('Не удалось загрузить данные.'); // Сообщение об ошибке
+                toast.error('Не удалось загрузить данные.');
             }
         };
 
@@ -89,22 +89,21 @@ const TeacherLessonCreateMain = () => {
             return;
         }
 
+        // Проверяем, что дата не раньше текущей (проверка на уровне JS)
+        const selectedDate = new Date(formData.date);
+        const today = new Date();
+        // Сравниваем только дату, без учёта времени
+        if (selectedDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0)) {
+            toast.warn('Нельзя выбрать дату раньше сегодняшней.');
+            return;
+        }
+
         try {
             const { date, startTime, endTime } = formData;
             const startDateTime = `${date}T${startTime}:00`;
             const endDateTime = `${date}T${endTime}:00`;
             const teacherId = localStorage.getItem('user_id');
 
-            const data = {
-                teacher: teacherId,
-                institute: selectedInstitute,
-                subject: formData.discipline,
-                topic: formData.topic,
-                location: formData.location,
-                start_time: startDateTime,
-                end_time: endDateTime,
-            };
-            console.log(data);
             const response = await axiosInstance.post('/api/lessons/', {
                 teacher: teacherId,
                 institute: selectedInstitute,
@@ -144,7 +143,7 @@ const TeacherLessonCreateMain = () => {
 
     return (
         <main className="teacher-lesson-create__main">
-            <ToastContainer /> {/* Контейнер для уведомлений */}
+            <ToastContainer />
             <h1 className="teacher-lesson-create__title">Информация о паре</h1>
 
             <div className="teacher-lesson-create__container">
@@ -236,12 +235,14 @@ const TeacherLessonCreateMain = () => {
 
                     <div className="teacher-lesson-create__form-group">
                         <label htmlFor="date">Дата проведения</label>
+                        {/* Ограничиваем выбор даты на уровне HTML: не раньше сегодняшней */}
                         <input
                             type="date"
                             id="date"
                             name="date"
                             value={formData.date}
                             onChange={handleInputChange}
+                            min={new Date().toISOString().split('T')[0]} // min - сегодняшняя дата
                         />
                     </div>
 

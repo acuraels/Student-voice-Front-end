@@ -3,13 +3,14 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/AdminUserEdit/adminUserEditMain.css';
 import { ChevronLeft, Upload, Eye, EyeOff, Trash2 } from 'lucide-react';
 import axiosInstance from '../../utils/axiosInstance';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AdminUserEditMain = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
 
-    // Состояния для полей формы
     const [surname, setSurname] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -18,26 +19,25 @@ const AdminUserEditMain = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isActive, setIsActive] = useState(true);
-    const [visibleReviews, setVisibleReviews] = useState(false); // Добавляем состояние visibleReviews
+    const [visibleReviews, setVisibleReviews] = useState(false);
     const [institutes, setInstitutes] = useState([]);
     const [errors, setErrors] = useState({});
 
-    // Получение данных пользователя и списка институтов при монтировании компонента
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 const response = await axiosInstance.get(`/api/accounts/edit-user/${id}/`);
                 const data = response.data;
-                setSurname(data.surname);
-                setFirstName(data.first_name);
-                setLastName(data.last_name);
-                setRole(data.role);
-                setInstitute(data.institute);
-                setUsername(data.username);
+                setSurname(data.surname || '');
+                setFirstName(data.first_name || '');
+                setLastName(data.last_name || '');
+                setRole(data.role || '');
+                setInstitute(data.institute || '');
+                setUsername(data.username || '');
                 setIsActive(data.is_active);
-                setVisibleReviews(data.visible_reviews); // Устанавливаем visibleReviews
+                setVisibleReviews(data.visible_reviews);
             } catch (error) {
-                console.error('Ошибка при получении данных пользователя:', error);
+                toast.error('Не удалось получить данные пользователя');
             }
         };
 
@@ -46,7 +46,7 @@ const AdminUserEditMain = () => {
                 const response = await axiosInstance.get('/api/institutes/');
                 setInstitutes(response.data);
             } catch (error) {
-                console.error('Ошибка при получении институтов:', error);
+                toast.error('Не удалось получить список институтов');
             }
         };
 
@@ -54,7 +54,7 @@ const AdminUserEditMain = () => {
             fetchUserData();
             fetchInstitutes();
         } else {
-            console.error('ID пользователя не определен');
+            toast.error('ID пользователя не определен');
         }
     }, [id]);
 
@@ -62,8 +62,64 @@ const AdminUserEditMain = () => {
         navigate('/admin-users');
     };
 
+    const validateForm = () => {
+        const newErrors = {};
+
+        // Валидируем фамилию
+        if (!surname.trim()) {
+            newErrors.surname = 'Фамилия не может быть пустой';
+        } else if (!/^[а-яА-ЯёЁa-zA-Z]+$/.test(surname)) {
+            newErrors.surname = 'В фамилии допустимы только буквы';
+        }
+
+        // Валидируем имя
+        if (!firstName.trim()) {
+            newErrors.first_name = 'Имя не может быть пустым';
+        } else if (!/^[а-яА-ЯёЁa-zA-Z]+$/.test(firstName)) {
+            newErrors.first_name = 'В имени допустимы только буквы';
+        }
+
+        // Отчество (необязательное, но если пользователь ввел, проверяем)
+        if (lastName && !/^[а-яА-ЯёЁa-zA-Z]+$/.test(lastName)) {
+            newErrors.last_name = 'В отчестве допустимы только буквы';
+        }
+
+        // Роль
+        if (!role) {
+            newErrors.role = 'Выберите роль';
+        }
+
+        // Институт
+        if (!institute) {
+            newErrors.institute = 'Выберите институт';
+        }
+
+        // Логин
+        if (!username.trim()) {
+            newErrors.username = 'Логин не может быть пустым';
+        }
+
+        // Если пароль введен (при обновлении), можно добавить проверку на длину
+        if (password && password.length < 6) {
+            newErrors.password = 'Пароль должен содержать минимум 6 символов';
+        }
+
+        setErrors(newErrors);
+
+        if (Object.keys(newErrors).length > 0) {
+            // Выводим тосты об ошибках
+            Object.values(newErrors).forEach((errMsg) => toast.error(errMsg));
+            return false;
+        }
+        return true;
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         const userData = {
             username,
@@ -76,21 +132,21 @@ const AdminUserEditMain = () => {
             ...(password ? { password } : {}),
         };
 
-        // Добавляем visible_reviews, если роль 'teacher'
         if (role === 'teacher') {
             userData.visible_reviews = visibleReviews;
         }
 
         axiosInstance.put(`/api/accounts/edit-user/${id}/`, userData)
             .then(response => {
-                console.log('Пользователь обновлен:', response.data);
+                toast.success('Данные пользователя успешно обновлены');
                 navigate('/admin-users');
             })
             .catch(error => {
                 if (error.response && error.response.data) {
                     setErrors(error.response.data);
+                    Object.values(error.response.data).forEach((errMsg) => toast.error(errMsg));
                 } else {
-                    console.error('Ошибка при обновлении пользователя:', error);
+                    toast.error('Ошибка при обновлении пользователя');
                 }
             });
     };
@@ -98,11 +154,11 @@ const AdminUserEditMain = () => {
     const handleDelete = () => {
         axiosInstance.delete(`/api/accounts/delete-user/${id}/`)
             .then(response => {
-                console.log('Пользователь удален:', response.data);
+                toast.success('Пользователь удален');
                 navigate('/admin-users');
             })
-            .catch(error => {
-                console.error('Ошибка при удалении пользователя:', error);
+            .catch(() => {
+                toast.error('Ошибка при удалении пользователя');
             });
     };
 
@@ -110,10 +166,11 @@ const AdminUserEditMain = () => {
         const length = 8;
         const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+[]{}|;';
         let newPassword = '';
-        for (let i = 0, n = charset.length; i < length; ++i) {
-            newPassword += charset.charAt(Math.floor(Math.random() * n));
+        for (let i = 0; i < length; i++) {
+            newPassword += charset.charAt(Math.floor(Math.random() * charset.length));
         }
         setPassword(newPassword);
+        toast.info('Пароль сгенерирован');
     };
 
     return (
@@ -132,7 +189,9 @@ const AdminUserEditMain = () => {
                     <div className="admin-user-edit__photo-placeholder">
                         <img src="/Generic avatar.svg" alt="Загрузить фото" />
                     </div>
-                    <button className="admin-user-edit__photo-upload"><Upload size={24} /></button>
+                    <button className="admin-user-edit__photo-upload">
+                        <Upload size={24} />
+                    </button>
                 </div>
 
                 <form className="admin-user-edit__form" onSubmit={handleSubmit}>
@@ -163,7 +222,9 @@ const AdminUserEditMain = () => {
                         />
                         {errors.first_name && <p className="error">{errors.first_name}</p>}
 
-                        <label htmlFor="LastName">Отчество <span className="last-name-span">(опционально)</span> </label>
+                        <label htmlFor="LastName">
+                            Отчество <span className="last-name-span">(опционально)</span>
+                        </label>
                         <input
                             type="text"
                             id="LastName"
@@ -211,7 +272,6 @@ const AdminUserEditMain = () => {
                         {errors.institute && <p className="error">{errors.institute}</p>}
                     </div>
 
-                    {/* Добавляем переключатель активации пользователя */}
                     <div className="admin-user-edit__form-group">
                         <label htmlFor="isActive">Активен</label>
                         <input
@@ -223,7 +283,6 @@ const AdminUserEditMain = () => {
                         />
                     </div>
 
-                    {/* Добавляем чекбокс видимости отзывов, только если роль 'teacher' */}
                     {role === 'teacher' && (
                         <div className="admin-user-edit__form-group">
                             <label htmlFor="visibleReviews">Видимость отзывов</label>
@@ -257,7 +316,7 @@ const AdminUserEditMain = () => {
                         <label htmlFor="password">Пароль</label>
                         <div className="admin-user-edit__password-container">
                             <input
-                                type={showPassword ? "text" : "password"}
+                                type={showPassword ? 'text' : 'password'}
                                 id="password"
                                 name="password"
                                 placeholder="Пароль"
@@ -283,7 +342,9 @@ const AdminUserEditMain = () => {
                     </div>
 
                     <div className="admin-user-edit__form-actions">
-                        <button type="submit" className="admin-user-edit__submit-btn">Применить</button>
+                        <button type="submit" className="admin-user-edit__submit-btn">
+                            Применить
+                        </button>
                         <button
                             type="button"
                             className="admin-user-edit__delete-btn"

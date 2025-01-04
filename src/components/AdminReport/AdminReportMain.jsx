@@ -357,7 +357,7 @@ const AdminReportMain = () => {
                             <p><strong>Студент:</strong> {selectedFeedback.student_name}</p>
                             <p><strong>Оценка:</strong> {selectedFeedback.rating}</p>
                             <p><strong>Комментарий:</strong> {selectedFeedback.comment || 'Нет комментария'}</p>
-                            <p><strong>Praises:</strong> {selectedFeedback.praises && selectedFeedback.praises.join(', ')}</p>
+                            <p><strong>Похвала:</strong> {selectedFeedback.praises && selectedFeedback.praises.join(', ')}</p>
                             <p><strong>Дата:</strong> {new Date(selectedFeedback.created_at).toLocaleString('ru-RU')}</p>
                         </div>
                     </div>

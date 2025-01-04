@@ -15,6 +15,7 @@ const TeacherLessonStatMain = () => {
     });
     const { unique_code } = useParams(); // Получаем параметр из URL
     const navigate = useNavigate();
+    const teacherId = localStorage.getItem("user_id");
 
     useEffect(() => {
         // Запрос данных урока
@@ -33,10 +34,10 @@ const TeacherLessonStatMain = () => {
         // Запрос данных отзывов преподавателя
         const fetchTeacherFeedback = async () => {
             try {
-                const response = await axiosInstance.get(`/api/teachers/${unique_code}/feedback/`);
+                const response = await axiosInstance.get(`/api/lessons/teacher-lessons/${teacherId}/`);
                 setTeacherFeedback({
-                    most_frequent_praise: response.data.most_frequent_praise,
-                    most_frequent_criticism: response.data.most_frequent_criticism
+                    most_frequent_praise: response.data.teacher.most_frequent_praise,
+                    most_frequent_criticism: response.data.teacher.most_frequent_criticism
                 });
             } catch (error) {
                 console.error("Ошибка при загрузке данных преподавателя:", error);
@@ -73,7 +74,7 @@ const TeacherLessonStatMain = () => {
 
                 <div className="teacher-lesson-stat__lesson-info">
                     <div className="teacher-lesson-stat__discipline">
-                        <h2>{lessonData.subject}</h2>
+                        <h2>{lessonData.topic}</h2>
                         <p>{lessonData.location}</p>
                     </div>
                     <div className="teacher-lesson-stat__time">
@@ -86,8 +87,13 @@ const TeacherLessonStatMain = () => {
                                 fontSize: '20px',
                                 fontWeight: 'bold',
                             }}
-                        >{lessonData.average_rating.toFixed(1)}</span>
+                        >
+                            {lessonData.average_rating !== null && lessonData.average_rating !== undefined
+                                ? lessonData.average_rating.toFixed(1)
+                                : 'N/A'}
+                        </span>
                     </div>
+
                 </div>
 
                 <div className="admin-user-stat__feedback">

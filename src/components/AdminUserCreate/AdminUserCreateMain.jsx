@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/AdminUserEdit/adminUserEditMain.css';
 import { ChevronLeft, Upload, Eye, EyeOff } from 'lucide-react';
 import axiosInstance from '../../utils/axiosInstance';
@@ -16,7 +18,6 @@ const AdminUserCreateMain = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
-
     const [institutes, setInstitutes] = useState([]);
 
     useEffect(() => {
@@ -26,6 +27,7 @@ const AdminUserCreateMain = () => {
             })
             .catch((error) => {
                 console.error('Error fetching institutes:', error);
+                toast.error('Ошибка загрузки институтов');
             });
     }, []);
 
@@ -33,8 +35,24 @@ const AdminUserCreateMain = () => {
         navigate('/admin-users');
     };
 
+    const validateFields = () => {
+        const validationErrors = {};
+        if (!surname.trim()) validationErrors.surname = 'Фамилия обязательна';
+        if (!firstName.trim()) validationErrors.first_name = 'Имя обязательно';
+        if (!role) validationErrors.role = '';
+        if (!institute) validationErrors.institute = '';
+        if (!username.trim()) validationErrors.username = 'Логин обязателен';
+        if (!password.trim()) validationErrors.password = 'Пароль обязателен';
+        setErrors(validationErrors);
+        return Object.keys(validationErrors).length === 0;
+    };
+
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (!validateFields()) {
+            toast.error('Проверьте правильность заполнения полей');
+            return;
+        }
 
         const userData = {
             username,
@@ -48,7 +66,7 @@ const AdminUserCreateMain = () => {
 
         axiosInstance.post('/api/accounts/create-user/', userData)
             .then((response) => {
-                console.log('User created:', response.data);
+                toast.success('Пользователь успешно создан');
                 navigate('/admin-users');
             })
             .catch((error) => {
@@ -57,6 +75,7 @@ const AdminUserCreateMain = () => {
                 } else {
                     console.error('Error:', error);
                 }
+                toast.error('Ошибка создания пользователя');
             });
     };
 
@@ -67,11 +86,13 @@ const AdminUserCreateMain = () => {
         for (let i = 0, n = charset.length; i < length; ++i) {
             newPassword += charset.charAt(Math.floor(Math.random() * n));
         }
-        return newPassword;
+        setPassword(newPassword);
+        toast.info('Пароль сгенерирован');
     };
 
     return (
         <main className="admin-user-edit__main">
+            <ToastContainer />
             <h1 className="admin-user-edit__title">Информация о пользователе</h1>
 
             <div className="admin-user-edit__container">
@@ -98,7 +119,6 @@ const AdminUserCreateMain = () => {
                             name="surName"
                             placeholder="Фамилия"
                             className="admin-user-edit__form-name__input"
-                            required
                             value={surname}
                             onChange={(e) => setSurname(e.target.value)}
                         />
@@ -111,7 +131,6 @@ const AdminUserCreateMain = () => {
                             name="firstName"
                             placeholder="Имя"
                             className="admin-user-edit__form-name__input"
-                            required
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                         />
@@ -127,7 +146,6 @@ const AdminUserCreateMain = () => {
                             value={lastName}
                             onChange={(e) => setLastName(e.target.value)}
                         />
-                        {errors.last_name && <p className="error">{errors.last_name}</p>}
                     </div>
 
                     <div className="admin-user-edit__form-group">
@@ -137,7 +155,6 @@ const AdminUserCreateMain = () => {
                             name="role"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
-                            required
                         >
                             <option value="">Выберите роль</option>
                             <option value="teacher">Преподаватель</option>
@@ -153,7 +170,6 @@ const AdminUserCreateMain = () => {
                             name="institute"
                             value={institute}
                             onChange={(e) => setInstitute(e.target.value)}
-                            required
                         >
                             <option value="">Выберите институт</option>
                             {institutes.map((inst) => (
@@ -176,7 +192,6 @@ const AdminUserCreateMain = () => {
                             placeholder="Логин"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            required
                         />
                         {errors.username && <p className="error">{errors.username}</p>}
                     </div>
@@ -191,7 +206,6 @@ const AdminUserCreateMain = () => {
                                 placeholder="Пароль"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required
                             />
                             <button
                                 type="button"
@@ -204,7 +218,7 @@ const AdminUserCreateMain = () => {
                         <button
                             type="button"
                             className="admin-user-edit__generate-password"
-                            onClick={() => setPassword(generateRandomPassword())}
+                            onClick={generateRandomPassword}
                         >
                             Генерировать
                         </button>
@@ -221,4 +235,3 @@ const AdminUserCreateMain = () => {
 };
 
 export default AdminUserCreateMain;
-

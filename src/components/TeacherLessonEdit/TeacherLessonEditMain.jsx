@@ -335,7 +335,7 @@ const TeacherLessonEditMain = () => {
                                     window.location.reload(); // Обновляем страницу
                                 }}
                             >
-                                Включить на 10 минут
+                                Продлить QR код на 10 минут
                             </button>
                         </div>
                     </div>

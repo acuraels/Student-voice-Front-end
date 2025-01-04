@@ -18,6 +18,7 @@ const StudFormMain = () => {
     const fetchLessonData = async () => {
       try {
         const response = await axiosInstance.get(`/api/lessons/code/${unique_code}/`);
+        console.log(response.data)
         setLessonData(response.data);
       } catch (error) {
         if (error.response) {
@@ -76,8 +77,11 @@ const StudFormMain = () => {
   return (
     <main className="stud-form">
       <div className="stud-form__container">
-        <h1 className="stud-form__title">{lessonData.subject_name}</h1>
-        <h2 className="stud-form__theme">{lessonData.topic}</h2>
+        <h1 className="stud-form__title">{lessonData.teacher_last_name} {lessonData.teacher_first_name}</h1>
+        <div className="stud-form__info">
+          <h2 className="stud-form__title">{lessonData.subject_name}</h2>
+          <h2 className="stud-form__theme">{lessonData.topic}</h2>
+        </div>
         <div className="stud-form__info">
           <div className="stud-form__info-date">
             <h2 className="stud-form__info-title">Дата проведения</h2>

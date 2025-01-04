@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import '../.././styles/FormPage/formPageMain.css';
-import { Eye, EyeOff } from 'lucide-react';
-import axiosInstance from '../../utils/axiosInstance';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify"; // Импорт Toastify
+import "react-toastify/dist/ReactToastify.css"; // Стили Toastify
+import "../.././styles/FormPage/formPageMain.css";
+import { Eye, EyeOff } from "lucide-react";
+import axiosInstance from "../../utils/axiosInstance";
+import { useNavigate, Link } from "react-router-dom";
 
 const FormPageMain = () => {
-    const [credentials, setCredentials] = useState({ username: '', password: '' });
+    const [credentials, setCredentials] = useState({ username: "", password: "" });
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
@@ -13,38 +15,43 @@ const FormPageMain = () => {
         const { name, value } = e.target;
         setCredentials({
             ...credentials,
-            [name]: value
+            [name]: value,
         });
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!credentials.username || !credentials.password) {
+            toast.error("Пожалуйста, заполните все поля!");
+            return;
+        }
+
         axiosInstance
-            .post('api/accounts/token/', credentials)
+            .post("api/accounts/token/", credentials)
             .then((response) => {
-                localStorage.setItem('access_token', response.data.access);
-                localStorage.setItem('refresh_token', response.data.refresh);
+                localStorage.setItem("access_token", response.data.access);
+                localStorage.setItem("refresh_token", response.data.refresh);
 
-                axiosInstance.defaults.headers['Authorization'] = 'Bearer ' + response.data.access;
+                axiosInstance.defaults.headers["Authorization"] = "Bearer " + response.data.access;
 
-                axiosInstance.get('api/accounts/user-info/').then((res) => {
-                    localStorage.setItem('user_role', res.data.role);
+                axiosInstance.get("api/accounts/user-info/").then((res) => {
+                    localStorage.setItem("user_role", res.data.role);
                     const userRole = res.data.role;
-                    if (userRole === 'admin') {
-                        navigate('/admin-users');
-                    } else if (userRole === 'teacher') {
-                        localStorage.setItem('user_id', res.data.id);
-                        navigate('/teacher-lessons');
+
+                    toast.success("Вход выполнен успешно!");
+                    if (userRole === "admin") {
+                        navigate("/admin-users");
+                    } else if (userRole === "teacher") {
+                        localStorage.setItem("user_id", res.data.id);
+                        navigate("/teacher-lessons");
                     } else {
-                        navigate('/unauthorized');
+                        navigate("/unauthorized");
                     }
                 });
             })
             .catch((error) => {
-                console.error('Login error:', error);
-                if (error.response) {
-                    console.error('Error data:', error.response.data);
-                }
+                console.error("Login error:", error);
+                toast.error("Ошибка входа. Проверьте логин или пароль.");
             });
     };
 
@@ -60,7 +67,9 @@ const FormPageMain = () => {
                         <div className="main__form-container">
                             <form className="form" onSubmit={handleSubmit}>
                                 <div className="form__group">
-                                    <label htmlFor="username" className="form__label">Логин</label>
+                                    <label htmlFor="username" className="form__label">
+                                        Логин
+                                    </label>
                                     <input
                                         id="username"
                                         name="username"
@@ -69,10 +78,13 @@ const FormPageMain = () => {
                                         className="form__input"
                                         value={credentials.username}
                                         onChange={handleInputChange}
+                                        required // Поле обязательно для заполнения
                                     />
                                 </div>
                                 <div className="form__group">
-                                    <label htmlFor="password" className="form__label">Пароль</label>
+                                    <label htmlFor="password" className="form__label">
+                                        Пароль
+                                    </label>
                                     <div className="form__password-container">
                                         <input
                                             id="password"
@@ -82,6 +94,7 @@ const FormPageMain = () => {
                                             className="form__input"
                                             value={credentials.password}
                                             onChange={handleInputChange}
+                                            required // Поле обязательно для заполнения
                                         />
                                         <button
                                             type="button"
@@ -92,14 +105,17 @@ const FormPageMain = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <button type="submit" className="form__button">Войти</button>
+                                <button type="submit" className="form__button">
+                                    Войти
+                                </button>
                             </form>
                             {/*<Link to="/forgot-password" className="form__link">Забыли пароль?</Link>
-                            <Link to="/register" className="form__link">Зарегистрироваться</Link>*/}
+              <Link to="/register" className="form__link">Зарегистрироваться</Link>*/}
                         </div>
                     </div>
                 </div>
             </div>
+            <ToastContainer position="top-center" autoClose={3000} /> {/* Контейнер для уведомлений */}
         </main>
     );
 };
