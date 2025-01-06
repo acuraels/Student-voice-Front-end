@@ -28,7 +28,7 @@
    - [Скачать Git](https://git-scm.com/)
 
 2. **Node.js** (Среда выполнения JavaScript)  
-   - [Установка Node.js](https://nodejs.org/)  
+   - [Скачать Node.js](https://nodejs.org/)  
 
 ---
 
@@ -44,7 +44,7 @@ git clone git clone https://github.com/acuraels/Student-voice-Front-end.git
 npm i
 ```
 
-### 3. Запустите проект в режиме разраюотчика
+### 3. Запустите проект в режиме разработчика
 ```bash
 npm run dev
 ```
